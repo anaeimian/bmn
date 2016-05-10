@@ -1,0 +1,94 @@
+{% extends 'users/user-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+
+    <div class="ui segment">
+        {% if success %}
+            <div class="ui positive message">
+                تعییرات شما با موفقیت ثبت شد.
+            </div>
+        {% endif %}
+        <div class="ui header">
+            تکمیل درخواست همکاری
+        </div>
+        <p>
+        <ul>
+            <li> <bold>
+پایگاه های انتخابی:
+                </bold>
+                <br>
+                <strong>
+                    اولویت اول:
+                    {{ associations.0 }}</strong>
+
+                 <strong> <br>
+اولویت دوم:
+                    {{ associations.1 }}</strong>
+
+                 <strong> <br>
+اولویت سوم:
+                    {{ associations.2 }}</strong>
+
+            </li>
+            <li> <bold>
+                تسهیلات:
+               </bold>
+                <strong>{{ application.facility }}</strong>
+            </li>
+            <li>
+                <bold>
+                حوزه تخخصی:
+               </bold>
+                <strong>{{ application.field }}</strong>
+            </li>
+        </ul>
+        </p>
+    </div>
+
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <form class="ui large form" action="/users/requests/edit/{{ application.id }}/" method="post"
+                  enctype="multipart/form-data" name="main">
+                {% csrf_token %}
+                <div class="ui segment">
+                {% if error %}
+                    <h3 style="color: red">
+                    پر کردن همه فیلدها الزامی است!
+                    </h3>
+                {% endif %}
+                    <input style="display: none;" name="action" type="text" id="action-input">
+                    {% for ta in text_attachments %}
+                        <div class="required field">
+                            <label class="ui label">{{ ta.title }}</label>
+                            <input type="text" name="text-{{ ta.id }}" {% if ta.text %}value="{{ ta.text }}"{% endif %}>
+                        </div>
+                    {% endfor %}
+                    {% for fa in file_attachments %}
+                        <div class="required field">
+                            <label class="ui label">{{ fa.title }}</label>
+                            <input type="file" name="file-{{ fa.id }}">
+                            {% if fa.file %}
+                                <a class="ui green" href="{{ MEDIA_URL }}{{ fa.file.url }}">
+                                    فایل فعلی
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="fields">
+                    <button class="ui green button" id="save" type="submit">ذخیره</button>
+                    <button class="ui green button" id="preview" type="submit">پیش نمایش و ثبت نهایی</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block scripts %}
+
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+    <script src="{% static 'javascripts/getcsrftoken.js' %}"></script>
+    <script src="{% static 'javascripts/users/form-action-handle.js' %}"></script>
+
+{% endblock %}

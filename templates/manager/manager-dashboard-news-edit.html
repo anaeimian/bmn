@@ -1,0 +1,57 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            ویرایش خبر
+        </div>
+
+        {% if form.errors %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/news/edit/{{ new.id }}/"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <label>عنوان خبر</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>متن خبر</label>
+                    {{ form.news_text }}
+                </div>
+                <div class="field">
+                    <label>
+                        ضمیمه
+                        {% if new.attachment %}
+                            [
+                            <a class="ui teal" href="{{ MEDIA_URL }}{{ new.attachment.url }}">
+                                ضمیمه فعلی
+                            </a>
+                            ]
+
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="clear_attachment">
+                                <label>ضمیمه فعلی حذف شود.</label>
+                            </div>
+                        {% endif %}
+                    </label>
+                    {{ form.attachment }}
+                </div>
+
+                <button class="ui green button" type="submit">ویرایش خبر</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

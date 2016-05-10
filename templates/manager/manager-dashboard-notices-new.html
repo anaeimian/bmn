@@ -1,0 +1,70 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            افزودن اطلاعیه جدید
+        </div>
+
+        {% if form.errors %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/notices/new/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <label>عنوان اطلاعیه</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>متن اطلاعیه</label>
+                    {{ form.notice_text }}
+                </div>
+                <div class="four fields">
+                    <div class="field">
+                        <label>زمان شروع نمایش</label>
+                        {{ form.start_date }}
+                    </div>
+                    <div class="field">
+                        <input id="start_date_btn" class="cal btn" type="button">
+                    </div>
+                    <div class="field">
+                        <label>زمان اتمام نمایش</label>
+                        {{ form.end_date }}
+                    </div>
+                    <div class="field">
+                        <input id="end_date_btn" class="cal btn" type="button">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>فایل ضمیمه</label>
+                    {{ form.attachment }}
+                </div>
+
+                <button class="ui green button" type="submit">افزودن اطلاعیه جدید</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/manager/turn-calendars.js' %}"></script>
+
+{% endblock %}

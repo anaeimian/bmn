@@ -1,0 +1,74 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            حوزه‌های تخصصی
+        </div>
+
+        <div class="ui segment">
+
+            {% if form.errors %}
+            <div class="ui negative message">
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید حوزه‌های تخصصی را ویرایش کنید.
+            </p>
+
+            <form method="POST" action="/manager/fields/" class="ui form">
+                {% csrf_token %}
+                <div class="two fields">
+                    <div class="ui input field">
+                        {{ form.title }}
+                    </div>
+                    <div class="ui input field">
+                        <button class="ui green button" type="submit">
+                        افزودن حوزه تخخصی جدید
+                    </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {% if not fields %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    هیچ حوزه تخصصی وجود ندارد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for field in fields %}
+            <div class="ui segment">
+
+                <p><i class="write  icon"></i>
+                    {{ field.title }}
+                </p>
+
+                <a class="ui teal button" href="/manager/fields/edit/{{ field.id }}/">
+                    ویرایش
+                </a>
+                <a class="ui red button" href="/manager/fields/delete/{{ field.id }}/">
+                    حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

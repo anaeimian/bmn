@@ -1,0 +1,56 @@
+{% extends 'manager/manager-base.html' %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui yellow icon small message">
+            <i class="small inbox icon"></i>
+
+            <div class="content">
+                <div class="header">
+                    پیغام‌ سامانه
+                </div>
+                <p>
+                    شما
+                    <a href="#">۵ پیغام </a>
+                    خوانده نشده دارید.
+                </p>
+            </div>
+        </div>
+
+        <div style="height: 10px"></div>
+
+        <div class="">
+            <div class="ui dividing header">
+                وضعیت درخواست‌ها
+            </div>
+            <div class="ui three statistics">
+                <div class="ui statistic">
+                    <div class="label">
+                        کل درخواست‌های ثبت شده
+                    </div>
+                    <div class="value">
+                        ۱۲
+                    </div>
+                </div>
+                <div class="ui statistic">
+                    <div class="label">
+                        کل درخواست‌های تایید شده
+                    </div>
+                    <div class="value">
+                        ۴
+                    </div>
+                </div>
+                <div class="ui statistic">
+                    <div class="label">
+                        کل درخواست‌های در دست بررسی
+                    </div>
+                    <div class="value">
+                        ۳
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

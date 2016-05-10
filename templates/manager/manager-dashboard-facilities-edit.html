@@ -1,0 +1,32 @@
+{% extends 'manager/manager-base.html' %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            ویرایش تسهیلات
+        </div>
+
+        {% if form.errors %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/facilities/edit/{{ facility.id }}/">
+                {% csrf_token %}
+                <div class="field">
+                    {{ form.title }}
+                </div>
+                <button class="ui green button" type="submit">ثبت تغییرات</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

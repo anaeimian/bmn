@@ -1,0 +1,57 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            لیست سوالات متداول
+        </div>
+
+        <div class="ui segment">
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید سوالات متداول را ویرایش، حذف و یا اضافه کنید.
+            </p>
+
+            <a class="ui green button" href="/manager/faqs/new/">
+                افزودن سوال جدید
+            </a>
+        </div>
+
+        {% if not faqs %}
+            <div class="ui segment">
+
+            <p><i class="info icon"></i>
+                هیچ سوالی وجود ندارد.
+            </p>
+        </div>
+        {% endif %}
+
+        {% for faq in faqs %}
+            <div class="ui segment">
+
+                <p><i class="question icon"></i>
+                    {{ faq.question_text }}
+                </p>
+
+                <p>
+
+                <p><i class="edit icon"></i>
+                    {{ faq.answer_text }}
+                </p>
+
+                <a class="ui teal button" href="/manager/faqs/edit/{{ faq.id }}/">
+                        ویرایش
+                </a>
+                <a class="ui red button" href="/manager/faqs/delete/{{ faq.id }}/">
+                        حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/faq.js' %}"></script>
+{% endblock %}

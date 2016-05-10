@@ -1,0 +1,194 @@
+{% extends 'users/user-base.html' %}
+{% block segment %}
+
+    <div class="ui segment">
+        <ol class="ui list">
+            <li class="item">
+                <div class="ui dividing header">
+                    {% if military_application.personal_info_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    مشخصات اولیه
+                </div>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="education/">
+                    {% if military_application.educational_background_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    سوابق تحصیلی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="postdoc/">
+                    {% if military_application.postdoc_backgournd_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    سوابق پژوهشی پسادکتری
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="teaching/">
+                    {% if military_application.teaching_background_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    سوابق تدریس
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="intlpapers/">
+                    {% if military_application.international_papers_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    مقالات بین‌المللی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="intrnlpapers/">
+                    {% if military_application.internal_papers_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    مقالات علمی-پژوهشی داخلی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="confpapers/">
+                    {% if military_application.conference_papers_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    مقالات منشتر شده در کنفرانس
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="research/">
+                    {% if military_application.research_experience_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    فعالیت پژوهشی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="intrnlinventions/">
+                    {% if military_application.internal_inventions_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    اختراع‌های برگزیده داخلی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="intlinventions/">
+                    {% if military_application.international_inventions_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    اختراع‌های بین‌المللی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="offers/">
+                    {% if military_application.offers_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    اخذ پیشنهاد همکاری و عقد قرارداد با مراکز و موسسات علمی/پژوهشی/صنعتی متعبر داخل کشور
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="scholarships/">
+                    {% if military_application.scholarships_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    اخذ بورسیه تحصیلی از دانشگاه‌ها و مراکز علمی/صنعتی دنیا
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="grants/">
+                    {% if military_application.grants_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    اخذ پژوهانه (گرنت تحقیقاتی) از دانشگاه‌ها و مراکز علمی/صنعتی معتبر دنیا
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="rankings/">
+                    {% if military_application.rankings_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    کسب رتبه در آزمون‌های ورودی کارشناسی ، کارشناسی ارشد و دکتری تخصصی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="olympiads/">
+                    {% if military_application.olympiads_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    کسب رتبه در المپیاد‌های علمی و بین‌المللی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="memberships/">
+                    {% if military_application.memberships_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    عضویت در انجمن‌های علمی/حرفه‌ای/صعنتی معتبر
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="editors/">
+                    {% if military_application.editors_memberships_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    عضویت در هیئت تحریریه/مشاوران نشریه‌ها با نمایه معتبر ISI و Scopus
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="notes/">
+                    {% if military_application.notes_completed %}
+                        <i class="green check icon"></i>
+                    {% else %}
+                        <i class="red remove icon"></i>
+                    {% endif %}
+                    توضیحات تکمیلی
+                </a>
+            </li>
+            <li class="item">
+                <a class="ui dividing header" href="sumit/">
+                    <i class="yellow right arrow icon"></i>
+                    ثبت نهایی درخواست
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui negative message">
+            در صورت حذف کردن این حوزه تخصصی، همه کاربرانی که این حوزه تخصصی را داشته باشند از سیستم حذف خواهند شد.
+        </div>
+
+        <div class="ui segment">
+
+            <form method="POST" action="/manager/fields/delete/{{ field.id }}/" class="ui form">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui input">
+                        <button class="ui red button" type="submit">
+                            حذف
+                            {{ field.title }}
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {% if not users %}
+            <div class="ui segment">
+                <p><i class="user icon"></i>
+                    با حذف این حوزه تخصصی هیچ کاربری حذف نخواهد شد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for user in users %}
+            <div class="ui negative message">
+
+                <div class="ui header">
+                    کاربران زیر با حذف این حوزه تخخصی حذف خواهند شد:
+                </div>
+                <ul class="content" style="list-style-type: none;">
+                    <li>
+                        <i class="user icon"></i>
+                        {{ user }}
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

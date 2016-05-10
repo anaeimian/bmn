@@ -1,0 +1,62 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            ویرایش پایگاه
+            {{ association.user.first_name }}
+        </div>
+
+        {% if form.errors %}
+            <div class="ui negative message">
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/associations/edit/{{ association }}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label>تسهیلات</label>
+
+                    <p>
+                        برای انتخاب چند گزینه در ویندوز Ctrl و در مک Command را نگه دارید.
+                    </p>
+                    {{ form.facilities }}
+                </div>
+                <div class="field">
+                    <label>حوزه‌های تخصصی</label>
+
+                    <p>
+                        برای انتخاب چند گزینه در ویندوز Ctrl و در مک Command را نگه دارید.
+                    </p>
+                    {{ form.fields }}
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>آدرس سایت پایگاه</label>
+                        <input type="url" name="url"/>
+                    </div>
+                    <div class="field">
+                        <label>لوگوی پایگاه</label>
+                        {{ form.logo }}
+                    </div>
+                </div>
+
+
+                <button class="ui green button" type="submit">افزودن پایگاه جدید</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

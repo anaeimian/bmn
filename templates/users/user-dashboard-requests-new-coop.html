@@ -1,0 +1,168 @@
+{% extends 'users/user-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+
+    <div class="ui dividing header">
+        ایجاد درخواست جدید
+    </div>
+
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui segment">
+                <div class="ui fluid accordion">
+                    <div class="active title">
+                        <i class="dropdown icon"></i>
+                        اهداف
+                    </div>
+                    <div class="active content">
+                        <p>
+                            1- استفاده از ظرفیت علمی و پژوهشی متخصصان و دانشمندان برجسته ایرانی غیرمقیم در مراكز علمی،
+                            فناوری و صنعتی داخل
+                            2- ترغیب، تسهیل و ایجاد انگیزه برای بازگشت دانش‌آموختگان و محققان غیرمقیم به کشور
+                            3- ارتقای سطح علمی پایگاه های تخصصی همکار‌ و مراكز علمی داخلی
+                            4- فراهم‌سازی شرایط مناسب جهت همکاری و توسعه فناوری‌های نوظهور و پیشرفته در كشور
+                            5- فراهم نمودن شرایط انتقال مهارت‌ها، روش‌ها و قابلیت‌های خدماتی نوین توسط متخصصین ایرانی
+                            غیرمقیم به داخل کشور
+                        </p>
+                    </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        تسهیلات پسا دکتری
+                    </div>
+                    <div class="content">
+                        <p>
+                            دانش آموختگان دوره دکترا در یكی از 400 دانشگاه‌ برتر دنیا (بر اساس رده‌بندی برترین
+                            دانشگاه‌های دنیا كه سالانه توسط مجله تایمز منتشر می‌شود) كه ترجیحاً از زمان فارغ‌التحصیلی
+                            آن‌ها بیش از 3 سال نگذشته باشد، می‌توانند به مدت یکسال از این تسهیلات استفاده نمایند.
+                            گزینش مشمولان حمایت از بین داوطلبان حایز شرایط با توجه به پیشینه و توانایی‌های علمی و پژوهشی
+                            و بر اساس پروپوزال تحقیقاتی توسط پایگاه تخصصی همکار انجام می شود.
+                            تسهیلات در نظر گرفته شده شامل موارد ذیل می‌باشد:
+                            - اختصاص مبلغ چهارصد و پنجاه میلیون ریال به پایگاه تخصصی همکار جهت پرداخت حقوق، مزایا، بیمه
+                            و مالیات به دانش آموخته به ‌مدت یک سال (به‌میزان حقوق استادیار پایه 1).
+                            - اختصاص مبلغ دویست میلیون ریال به‌ پایگاه تخصصی همکار به ازای هر یك از مشمولان طرح به
+                            ‌عنوان اعتبار پژوهشی و فناوری.
+                            - اختصاص فضای استقرار جهت بهره‌مندی از امکانات تخصصی و آزمایشگاهی، و مشاوره علمی و فناوری
+                            توسط پایگاه تخصصی همکار.
+                            سقف همکاری پایگاه تخصصی همکار از محل اعتبارات این طرح برابر 10 محقق پسا دكترا در هر سال است.
+                            پرداخت حقوق ماهانه به دانش‌آموخته منوط به تأیید استاد میزبان می‌باشد.
+                            درصورت نیاز پایگاه تخصصی همکار مدت زمان دوره پسا دكترا برای یك دوره یكساله دیگر قابل تمدید
+                            می‌باشد.
+                        </p>
+                    </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        تسهیلات دوره فرصت مطالعاتی
+                    </div>
+                    <div class="content">
+                        <p>
+                            اساتید هر یك از 400 دانشگاه‌ برتر دنیا (بر اساس رده‌بندی برترین دانشگاه‌های دنیا كه سالانه
+                            توسط مجله‌تایمز منتشر می‌شود) می‌توانند به مدت 6 ماه تا یکسال از این تسهیلات استفاده نمایند.
+                            گزینش مشمولان حمایت از بین داوطلبان حایز شرایط با توجه به پیشینه و توانایی‌های علمی و پژوهشی
+                            و بر اساس پروپوزال تحقیقاتی توسط پایگاه تخصصی همکار انجام می‌شود.
+                            تسهیلات در نظر گرفته شده شامل موارد ذیل می‌باشد:
+                            اختصاص مبلغ معادل با حقوق دریافتی اساتید دانشگاه با درجه علمی مشابه در ایران به پایگاه تخصصی
+                            همکار جهت پرداخت حقوق، مزایا، بیمه و مالیات به اساتید به مدت 6 ماه تا یكسال
+                            اختصاص مبلغ دویست میلیون ریال بعنوان کمک هزینه مسافرت و اقامت به پایگاه تخصصی همکار
+                            اختصاص مبلغ پانصد میلیون ریال به‌ پایگاه تخصصی همکار به ازای هر یك از مشمولان طرح به ‌عنوان
+                            اعتبار پژوهشی و فناوری سالانه
+                            اختصاص فضای استقرار جهت بهره‌مندی از امکانات تخصصی و آزمایشگاهی، و مشاوره علمی و فناوری توسط
+                            پایگاه تخصصی همکار
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <form class="ui form" action="/users/requests/new/coop/" method="post" id="form">
+                {% csrf_token %}
+                <div class="ui segment">
+                    {% if error %}
+                    <h3 style="color: red">
+                        پر کردن همه ی فیلدها الزامی است!
+                    </h3>
+                    {% endif %}
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                تسهیلات مورد نظر خود را انتخاب کنید.
+                            </label>
+                            {{ form.facility }}
+                        </div>
+                        <div class="field">
+                            <label>
+                                حوزه تخصصی مربوط به درخواست خود را انتخاب کنید.
+                            </label>
+                            {{ form.field }}
+                        </div>
+                    </div>
+
+                    <div class="two fields" id="associations-fields">
+                        <div class="field">
+                            <label id="assoc-label">
+                                پایگاه مورد نظر خود را انتخاب کنید.
+                            </label>
+                            <label>
+الویت اول
+                            </label>
+                            <select id="id_association1" name="association1">
+                                                            <option value="none">----------</option>
+                                                        </select>  <br>
+                             <label>
+الویت دوم
+                            </label>
+
+
+                                                        <select id="id_association2" name="association2">
+                                                            <option value="none">----------</option>
+                                                        </select> <br>
+                             <label>
+الویت سوم
+                            </label>
+
+                                                        <select id="id_association3" name="association3">
+                                                            <option value="none">----------</option>
+                                                        </select> <br>
+
+                        </div>
+                        <div class="field">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="check">
+                            <label id="termsagree">
+                                قوانین و شرایط طرح همکاری با متخصصان غیر مقیم را مطالعه کردم و با آن موافقم.
+                            </label>
+{#                            {% if error %}#}
+{#                                <p class="ui negative message">#}
+{#                                    این مورد الزامی است.#}
+{#                                </p>#}
+{#                            {% endif %}#}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button type="submit" class="ui primary right floated button">
+                        ادامه
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+    <script src="{% static 'javascripts/getcsrftoken.js' %}"></script>
+<<<<<<< HEAD
+    <script src="{% static 'javascripts/users/new-coop-request.js' %}"></script>
+
+=======
+    <script src="{% static 'javascripts/Users/new-coop-request.js' %}"></script>
+    <script src="{% static 'javascripts/Users/../../static/javascripts/users/new-coop-checkbox.js' %}"></script>
+>>>>>>> 99cbd0f13c08d1c4da7bdc4201b618e2e000a555
+{% endblock %}

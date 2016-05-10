@@ -1,0 +1,188 @@
+{% extends 'manager/manager-base.html' %}
+{% load static %}
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+{% block segment %}
+    <div class="ui segment">
+        <h3 class="ui dividing header">
+            فیلتر کردن درخواست‌ها
+        </h3>
+
+        <form class="ui form">
+            <div class="three fields">
+                <div class="field">
+                    <label>
+                        نام
+                    </label>
+                    {{ form.first_name }}
+                </div>
+                <div class="field">
+                    <label>
+                        نام خانوادگی
+                    </label>
+                    {{ form.last_name }}
+                </div>
+                <div class="field">
+                    <label>
+                        حوزه تخصصی
+                    </label>
+                    {{ form.field }}
+                </div>
+            </div>
+            <div class="ui three fields">
+                <div class="field">
+                    <label>
+                        تسهیلات
+                    </label>
+                    {{ form.facility }}
+                </div>
+                <div class="field">
+                    <label>
+                        پایگاه
+                    </label>
+                    {{ form.facility }}
+                </div>
+                <div class="field">
+                    <label>
+                        وضعیت
+                    </label>
+                    {{ form.status }}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                از تاریخ
+                            </label>
+                            {{ form.start_date }}
+                        </div>
+                        <div class="field">
+                            <input class="cal btn" type="button" id="start_date_btn">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                تا تاریخ
+                            </label>
+                            {{ form.end_date }}
+                        </div>
+                        <div class="field">
+                            <input class="cal btn" type="button" id="end_date_btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="ui primary button" value="
+            نمایش نتایج
+            ">
+        </form>
+    </div>
+    <div class="ui segment">
+        <form class="ui dividing header">
+            لیست درخواست‌های
+            &nbsp;&nbsp;&nbsp;
+            <div class="ui selection dropdown">
+                <input type="hidden" name="query">
+                <i class="dropdown icon"></i>
+
+                <div class="default text">
+                    جدید
+                </div>
+
+                <div class="menu">
+
+                    <div class="selected item" data-value="1">
+                        جدید
+                    </div>
+                    <div class="item" data-value="0">
+                        تایید اولیه شده
+                    </div>
+                    <div class="item" data-value="0">
+                        تایید اولیه نشده
+                    </div>
+                    <div class="item" data-value="0">
+                        رد شده
+                    </div>
+                    <div class="item" data-value="0">
+                        حذف شده
+                    </div>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="ui huge primary button">
+                نمایش نتایج
+            </button>
+        </form>
+
+        <table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>نوع درخواست</th>
+                <th>تاریخ ایجاد</th>
+                <th>نام متقاضی</th>
+                <th>پایگاه(ها)</th>
+                <th>تصمیم‌گیری</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td> تسهیلات نظام وظیفه</td>
+                <td>۱۳۹۴/۰۴/۱۰</td>
+                <td>اصغر اکبری</td>
+                <td>----</td>
+                <td>
+                    <a target="_blank" class="ui yellow button">مشاهده اطلاعات درخواست</a>
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="5">
+                    <div class="ui right floated pagination menu">
+
+                        <div class="icon item">
+                            <i class="left chevron icon"></i>
+                        </div>
+
+                        <div class="active item">۱</div>
+
+                        <a class="item">۲</a>
+
+                        <div class="item">...</div>
+
+                        <a class="item">۵</a>
+
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/manager/filter_requests.js' %}"></script>
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            افزودن پایگاه جدید
+        </div>
+
+        {% if form.errors or errors %}
+            <div class="ui negative message">
+
+                <div class="header">
+                    خطا
+                </div>
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="ui segment">
+            <div class="ui dividing header">
+                اطلاعات کاربری
+            </div>
+            <div class="ui info message">
+                توجه: اطلاعات کاربری پس از ثبت، قابل تغییر توسط مدیر بنیاد نیستند.
+            </div>
+            <form class="ui form" method="post" action="/manager/associations/new/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <label>نام پایگاه</label>
+                    <input type="text" name="name" value="{{ name }}"/>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>نام کاربری پایگاه</label>
+                        <input type="text" name="username" value="{{ username }}"/>
+                    </div>
+                    <div class="field">
+                        <label>ایمیل پابگاه</label>
+                        <input type="email" name="email" value="{{ email }}"/>
+                    </div>
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <label>رمز عبور پایگاه</label>
+                        <input type="password" name="password"/>
+                    </div>
+                    <div class="field">
+                        <label>تکرار رمز عبور</label>
+                        <input type="password" name="password_repeat"/>
+                    </div>
+                </div>
+
+                <div class="ui dividing header">
+                    اطلاعات پایگاه
+                </div>
+
+                <div class="field">
+                    <label>تسهیلات</label>
+
+                    <p>
+                        برای انتخاب چند گزینه در ویندوز Ctrl و در مک Command را نگه دارید.
+                    </p>
+                    {{ form.facilities }}
+                </div>
+                <div class="field">
+                    <label>حوزه‌های تخصصی</label>
+
+                    <p>
+                        برای انتخاب چند گزینه در ویندوز Ctrl و در مک Command را نگه دارید.
+                    </p>
+                    {{ form.fields }}
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>آدرس سایت پایگاه</label>
+                        <input type="url" name="url"/>
+                    </div>
+                    <div class="field">
+                        <label>لوگوی پایگاه</label>
+                        {{ form.logo }}
+                    </div>
+                </div>
+
+
+                <button class="ui green button" type="submit">افزودن پایگاه جدید</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

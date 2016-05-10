@@ -1,0 +1,97 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if formset.errors %}
+            <div class="ui negative message">
+                {% for form in formset.forms %}
+                    {{ form.errors }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                اطلاعات مربوط به اختراعات برگزیده داخلی خود را به دقت در فرم زیر وارد کنید.
+            </div>
+        {% endif %}
+    </div>
+
+
+    <h4 class="ui dividing header"></h4>
+
+    <form class="ui large form" method="post" enctype="multipart/form-data" action="/users/cons/research/" id="form">
+        <input type="hidden" value="1" id="num_of_forms_hidden" name="num_of_forms_hidden">
+
+        {% csrf_token %}
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.id }}
+            <div class="ui segment">
+                <div class="ui divigin header">
+                    اطلاعات فعالیت پژوهشی
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>
+                            عنوان فعالیت پژوهشی
+                        </label>
+                        {{ form.title }}
+                    </div>
+                    <div class="field">
+                        <label>
+                            نام دانشگاه
+                        </label>
+                        {{ form.university }}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>
+                            سابقه فعالیت به ماه
+                        </label>
+                        {{ form.length }}
+                    </div>
+                    <div class="field">
+                        <label>
+                            تصویر
+                        </label>
+                        {{ form.image_of_research_certificate }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <button class="ui primary button" type="submit">
+            ذخیره اطلاعات
+        </button>
+
+    </form>
+    <div class="ui center aligned grid">
+        <div class="four wide column">
+            <br>
+            <button class="ui center aligned large green button" id="add_new_form">
+                + افزودن فعالیت پژوهشی
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/cons/addform.js' %}"></script>
+    <script src="{% static 'javascripts/cons/journal.js ' %}"></script>
+
+{% endblock %}

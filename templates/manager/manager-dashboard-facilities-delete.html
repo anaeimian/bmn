@@ -1,0 +1,55 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui negative message">
+            در صورت حذف کردن این تسهیلات، تمامی درخواست‌های مربوط به آن حذف خواهند شد.
+        </div>
+
+        <div class="ui segment">
+
+            <form method="POST" action="/manager/facilities/delete/{{ facility.id }}/" class="ui form">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui input">
+                        <button class="ui red button" type="submit">
+                            حذف
+                            {{ facility.title }}
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {% if not applications %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    با حذف این تسهیلات هیچ درخواستی حذف نخواهد شد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for application in applications %}
+            <div class="ui segment">
+
+                <p>
+                    <i class="icon file text outline"></i>
+                    {{ application.user.first_name }} {{ application.user.last_name }}
+                    برای پایگاه
+                    {{ application.association.user.first_name }}
+                </p>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui negative message">
+            در صورت حذف کردن این پایگاه، تمامی درخواست‌های مربوط به آن از سیستم حذف حواهند شد.
+        </div>
+
+        <div class="ui segment">
+
+            <form method="POST" action="/manager/associations/delete/{{ association.id }}/" class="ui form">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui input">
+                        <button class="ui red button" type="submit">
+                            حذف
+                            {{ association.user.first_name }}
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {% if not applications %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    با حذف این پایگاه هیچ درخواستی حذف نخواهد شد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for application in applications %}
+            <div class="ui segment">
+                <p>
+                    {{ application.user.first_name }} {{ application.user.last_name }}
+                </p>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

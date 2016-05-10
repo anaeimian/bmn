@@ -1,0 +1,72 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            همه اطلاعیه‌های سایت
+        </div>
+
+        <div class="ui segment">
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید اطلاعیه‌های سایت را ویرایش، حذف و یا اضافه کنید.
+            </p>
+
+            <a class="ui green button" href="/manager/notices/new/">
+                افزودن اطلاعیه جدید
+            </a>
+        </div>
+
+        {% if not notices %}
+            <div class="ui segment">
+
+                <p><i class="info icon"></i>
+                    هیچ اطلاعیه‌ای وجود ندارد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for notice in notices %}
+            <div class="ui segment">
+                <div class="ui green header">
+                    {{ notice.title }} &nbsp;
+                    (
+                    از:
+                    {{ notice.initiation_date|to_jdate }}
+                     &nbsp;&nbsp;
+                    تا:
+                    {{ notice.expiration_date|to_jdate }}
+                    )
+                </div>
+                <p><i class="alarm icon"></i>
+                    {{ notice.notice_text }}
+                    &nbsp;
+                    {% if notice.attachment %}
+                        [
+                        <a class="ui teal" href="{{ MEDIA_URL }}{{ notice.attachment.url }}">دریافت ضمیمه</a>
+                        ]
+                    {% else %}
+                        [
+                        ضمیمه ندارد
+                        ]
+                    {% endif %}
+                </p>
+
+                <a class="ui teal button" href="/manager/notices/edit/{{ notice.id }}/">
+                    ویرایش
+                </a>
+                <a class="ui red button" href="/manager/notices/delete/{{ notice.id }}/">
+                    حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

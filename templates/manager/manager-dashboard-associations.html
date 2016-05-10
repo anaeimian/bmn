@@ -1,0 +1,53 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            پایگاه‌ها
+        </div>
+
+        <div class="ui segment">
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید به سیستم پایگاه اضافه کنید یا پایگاه‌های موجود را حذف و یا ویرایش کنید.
+            </p>
+            <a class="ui green button" href="/manager/associations/new/">
+                افزودن پایگاه جدید
+            </a>
+
+        </div>
+
+        {% if not associations %}
+            <div class="ui segment">
+
+                <p><i class="travel icon"></i>
+                    هیچ پایگاهی وجود ندارد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for association in associations %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    {{ association.user.first_name }}
+                </p>
+
+                <a class="ui teal button" href="/manager/associations/edit/{{ association.id }}/">
+                    ویرایش
+                </a>
+                <a class="ui red button" href="/manager/associations/delete/{{ association.id }}/">
+                    حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

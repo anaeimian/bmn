@@ -1,0 +1,20 @@
+{% extends 'users/user-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+
+    <div class="ui massive success message">
+
+        <div class="header">
+            درخواست شما با موفقیت در سیستم ثبت شد.
+        </div>
+        <p>
+            <a href="/users/">
+بازگشت به خانه
+            </a>
+        </p>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+{% endblock %}

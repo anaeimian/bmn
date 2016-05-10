@@ -1,0 +1,115 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if formset.errors %}
+            <div class="ui negative message">
+                {% for form in formset %}
+                    {{ form.errors }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                اطلاعات مربوط به
+                دوره‌های پسادکتری خود
+                را به دقت در فرم زیر وارد کنید.
+            </div>
+        {% endif %}
+    </div>
+
+
+    <h4 class="ui dividing header"></h4>
+
+    <form class="ui large form" method="post" enctype="multipart/form-data" action="/users/cons/postdoc/"
+          id="form">
+
+        {% csrf_token %}
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.id }}
+
+            <div class="ui segment">
+                <div class="ui divigin header">
+                    اطلاعات دوره پسادکتری
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>
+                            دانشگاه
+                        </label>
+                        {{ form.university }}
+                    </div>
+                    <div class="field">
+                        <label>
+                            تصویر گواهی اشتغال به پژوهش در دوره پسادکتری
+                        </label>
+                        {{ form.photo_of_document }}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>
+                                    تاریخ شروع دوره
+                                </label>
+                                {{ form.start_date }}
+                            </div>
+                            <div class="field">
+                                <input type="button" class="cal btn" name="form-{{ forloop.counter0 }}-start_date_btn"
+                                       id="id_form-{{ forloop.counter0 }}-start_date_btn">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>
+                                    تاریخ پایان دوره
+                                </label>
+                                {{ form.end_date }}
+                            </div>
+                            <div class="field">
+                                <input type="button" class="cal btn" name="form-{{ forloop.counter0 }}-end_date_btn"
+                                       id="id_form-{{ forloop.counter0 }}-end_date_btn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <button class="ui primary button" type="submit">
+            ذخیره اطلاعات
+        </button>
+
+    </form>
+    <div class="ui center aligned grid">
+        <div class="four wide column">
+            <br>
+            <button class="ui center aligned large green button" id="add_new_form">
+                + افزودن دوره پسادکتری
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/cons/addform.js' %}"></script>
+    <script src="{% static 'javascripts/cons/scholarships.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            افزودن خبر جدید
+        </div>
+
+        {% if form.errors %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/news/new/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <label>عنوان خبر</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>متن خبر</label>
+                    {{ form.news_text }}
+                </div>
+                <div class="field">
+                    <label>فایل ضمیمه</label>
+                    {{ form.attachment }}
+                </div>
+
+                <button class="ui green button" type="submit">افزودن خبر جدید</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

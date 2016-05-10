@@ -1,0 +1,97 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if formset.errors %}
+            <div class="ui negative message">
+                {% for form in formset.forms %}
+                    {{ form.errors }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                اطلاعات مربوط به مقالات بین‌المللی خود را به دقت در فرم زیر وارد کنید.
+            </div>
+        {% endif %}
+    </div>
+
+
+    <h4 class="ui dividing header"></h4>
+
+    <form class="ui large form" method="post" enctype="multipart/form-data" action="/users/cons/intlpapers/" id="form">
+        <input type="hidden" value="1" id="num_of_forms_hidden" name="num_of_forms_hidden">
+        {% csrf_token %}
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+
+            {{ form.id }}
+
+            <div class="ui segment">
+                <div class="ui divigin header">
+                    اطلاعات مقاله بین‌المللی
+                </div>
+                <div class="two fields">
+                    <div class="required field">
+                        <label>
+                            عنوان مقاله
+                        </label>
+                        {{ form.paper_title }}
+                    </div>
+                    <div class="required field">
+                        <label>
+                            عنوان نشریه
+                        </label>
+                        {{ form.journal_title }}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="required field">
+                        <label>
+                            تعداد کل نویسندگان
+                        </label>
+                        {{ form.total_number_of_authors }}
+                    </div>
+                    <div class="required field">
+                        <label>
+                            جایگاه متقاضی در میان نویسندگان
+                        </label>
+                        {{ form.applicants_location_in_authors }}
+                    </div>
+                </div>
+                <div class="required field">
+                    <label>
+                        لینک اینترنتی معتبر مقاله
+                    </label>
+                    {{ form.link }}
+                </div>
+            </div>
+        {% endfor %}
+        <button class="ui primary button" type="submit">
+            ذخیره اطلاعات
+        </button>
+
+    </form>
+    <div class="ui center aligned grid">
+        <div class="four wide column">
+            <br>
+            <button class="ui center aligned large green button" id="add_new_form">
+                + افزودن سابقه تدریس
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/cons/addform.js' %}"></script>
+    <script src="{% static 'javascripts/cons/journal.js ' %}"></script>
+{% endblock %}

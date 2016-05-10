@@ -1,0 +1,81 @@
+/*******************************
+            Global
+*******************************/
+
+@import "fonts.css";
+
+html {
+    font-size: 14px;
+    direction: rtl;
+}
+
+*:not(i) {
+    font-family: 'WMYekan', 'Lato', Tahoma, sans-serif !important;
+    font-weight: normal;
+}
+
+/*******************************
+            Homepage
+*******************************/
+
+body#home {
+
+    background-image: -webkit-radial-gradient(rgba(0, 0, 0, 0.20) 50%, rgba(0, 0, 0, 0.10) 100%), url("../images/bg1.jpg");
+    background-image: radial-gradient(rgba(0, 0, 0, 0.20) 50%, rgba(0, 0, 0, 0.10) 100%), url('../images/bg1.jpg');
+
+    /*background: #E2E4E7;*/
+    /*background: url('../images/bg0.jpg') fixed;*/
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    height: 100%;
+    position: relative;
+}
+
+#home .ui.button{
+    font-weight: normal;
+}
+
+@media only screen and (max-width: 992px) {
+    html {
+        overflow-x: visible;
+        -webkit-overflow-scrolling: auto;
+    }
+}
+
+#home > .wrapper {
+    min-height: 100vh;
+    display: block;
+    flex-direction: initial;
+    overflow: visible;
+}
+
+#home > .wrapper > .full.height {
+    display: block;
+    height: 100%;
+    flex: none !important;
+}
+
+
+#military.ui.button{
+    position: relative;
+}
+/*--------------
+    Logo
+---------------*/
+
+/*--------------
+    Footer
+---------------*/
+
+/*******************************
+          Responsive
+*******************************/
+
+/* Mobile Only */
+@media only screen and (max-width: 768px) {
+
+}

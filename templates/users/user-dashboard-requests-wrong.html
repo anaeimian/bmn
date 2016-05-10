@@ -1,0 +1,54 @@
+{% extends 'users/user-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+
+    <div class="ui dividing header">
+        ایجاد درخواست جدید
+    </div>
+
+    <form class="ui form" method="POST" action="/users/requests/new/">
+        {% csrf_token %}
+        <div class="inline fields">
+            <input type="hidden" name="type-id" id="type-id">
+
+            <div class="thirteen wide field">
+                <div class="ui fluid selection dropdown">
+                    <input type="hidden" name="type" id="hidden-input">
+                    <i class="dropdown icon"></i>
+
+                    <div class="default text">
+                        انتخاب نوع درخواست
+                    </div>
+                    <div class="menu">
+                        <div class="item">
+                            <i class="attention icon"></i>
+                            تسهیلات همکاری با متخصصان غیر مقیم
+                        </div>
+                        <div class="item">
+                            <i class="comment icon"></i>
+                            تسهیلات نظام وظیفه
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide field">
+                <input type="submit" class="ui fluid teal button" value="ایجاد درخواست"/>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="ui dividing header">
+        <div class="ui negative message">
+            نوع درخواست انتخاب شده معتبر نمی‌باشد.
+            <a href="/users/requests/">
+                بازگشت
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+    <script src="{% static 'javascripts/users/new-request.js' %}"></script>
+{% endblock %}

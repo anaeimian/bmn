@@ -1,0 +1,50 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if form.errors %}
+            <div class="ui negative message">
+                {{ form.errors }}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                کاربر گرامی، در صورتی که مایل به درج توضیحات تکمیلی هستید، فرم زیر را پر کنید.
+            </div>
+        {% endif %}
+    </div>
+    <form class="ui large form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="ui stacked left aligned segment">
+
+            <div class="field">
+                <label>
+                    توضیحات تکمیلی
+                </label>
+                {{ form.text }}
+            </div>
+
+            <div class="center aligned column" id="">
+                <button type="submit" class="ui submit blue button">
+                    ذخیره اطلاعات
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+{% endblock %}

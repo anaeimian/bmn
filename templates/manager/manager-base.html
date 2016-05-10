@@ -1,0 +1,120 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="image_src" type="image/jpeg" href="{% static 'images/logo.png' %}">
+
+    <!-- Site Properities -->
+    <title>پنل مدیران بنیاد</title>
+    <meta name="description" content="New Portal for National Elite Foundation">
+    <meta name="keywords" content="html5, ui, library, framework, javascript">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/global.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/user-dashboard.css' %}">
+
+    {% block head_content %}
+    {% endblock %}
+
+</head>
+
+<body id="dashboard">
+
+<div class="mainmenu ui container">
+    <div class="ui stackable pointing large menu">
+
+        <a href="/manager/" class="header item">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            خانه
+        </a>
+
+        <a href="/manager/requests/" class="item">
+            <i class="icon file text outline"></i>
+            درخواست‌ها
+        </a>
+
+        <a href="/manager/messages/" class="item">
+            <i class="icon mail"></i>
+            پیغام‌ها
+            {% if new_messages %}
+                <div class="ui red circular label">{{ new_messages }}</div>
+            {% endif %}
+        </a>
+
+        <div class="ui pointing dropdown item">
+            ویرایش اطلاعات سایت
+            <i class="dropdown icon"></i>
+
+            <div class="menu">
+                <a href="/manager/notices/" class="item">
+                    <i class="icon alarm"></i>
+                    اطلاعیه‌ها
+                </a>
+                <a href="/manager/news/" class="item">
+                    <i class="icon pin"></i>
+                    اخبار
+                </a>
+                <a href="/manager/faqs/" class="item">
+                    <i class="icon question"></i>
+                    سوالات متداول
+                </a>
+
+            </div>
+        </div>
+
+        <div class="ui pointing dropdown item">
+            ویرایش فرم‌ها
+            <i class="dropdown icon"></i>
+
+            <div class="menu">
+
+                <a href="/manager/facilities/" class="item">
+                    <i class="suitcase icon"></i>
+                    تسهیلات ارائه شده
+                </a>
+
+                <a href="/manager/fields/" class="item">
+                    <i class="icon write"></i>
+                    حوزه‌های تخصصی
+                </a>
+                <a href="/manager/forms/" class="item">
+                    <i class="icon edit"></i>
+                    فرم‌ها
+                </a>
+                <a href="/manager/associations/" class="item">
+                    <i class="icon travel"></i>
+                    پایگاه‌ها
+                </a>
+
+            </div>
+        </div>
+
+        <div class="right menu">
+            <a href="/manager/logout/" class="item">
+                خروج
+                <i class="icon sign out"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="ui segment">
+        {% block segment %}
+
+        {% endblock %}
+    </div>
+</div>
+
+<script src="{% static 'javascripts/library/jquery-2.1.3.min.js' %}"></script>
+<script src="{% static 'semantic/semantic.min.js' %}"></script>
+<script src="{% static 'javascripts/dropdown.js' %}"></script>
+{% block scripts %}
+{% endblock %}
+</body>
+
+</html>

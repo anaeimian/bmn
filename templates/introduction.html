@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="image_src" type="image/jpeg" href="{% static 'images/logo.png' %}">
+
+    <!-- Site Properities -->
+    <title>درخواست‌ها | طراحی جدید</title>
+    <meta name="description" content="New Portal for National Elite Foundation">
+    <meta name="keywords" content="html5, ui, library, framework, javascript">
+    <link rel="icon" href="./assets/images/favicon.ico">
+
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.min.css' %}">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/fonts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/global.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/user-dashboard.css' %}">
+
+</head>
+
+<body id="dashboard">
+
+<div class="mainmenu ui container">
+
+    <div class="ui stackable pointing large menu">
+
+        <div href="#" class="header item">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            نام سامانه بنیاد
+        </div>
+
+    </div>
+
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            جستجوی پایگاه‌های همکار
+        </div>
+
+        <div class="ui form">
+            <div class="inline fields">
+                <div class="thirteen wide field">
+                    <div class="eleven wide field">
+                        <input type="text" placeholder="نام پایگاه...">
+                    </div>
+                    <div class="ui selection dropdown">
+                        <i class="dropdown icon"></i>
+                        <span class="default text">انتخاب حوزه تخصصی</span>
+
+                        <div class="menu">
+                            <div class="item">
+                                <i class="suitcase icon"></i>
+                                حوزه فعالیت ۱
+                            </div>
+                            <div class="item">
+                                <i class="suitcase icon"></i>
+                                حوزه فعالیت ۲
+                            </div>
+                            <div class="item">
+                                <i class="suitcase icon"></i>
+                                حوزه فعالیت ۳
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide field">
+                    <a href="#" class="ui fluid teal button">
+                        جستجو
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui dividing header">
+            نتایج جستجو
+        </div>
+
+        <table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>نام پایگاه</th>
+                <th>حوزه‌های تخصصی</th>
+                <th>تسهیلات</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>دانشگاه صنعتی امیرکبیر</td>
+                <td>
+                    <ul>
+                        <li>علوم پایه، علوم مهندسی و منابع طبیعی (دانشگاه صنعتی اصفهان)</li>
+                        <li>علوم و فناوری‌های نانو (Nanoscience and Technology)</li>
+                        <li>نفت و گاز</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>تسهیلات دوره پسادکتری</li>
+                        <li>تسهیلات حمایت از انجام سخنرانی و برگزاری کارگاه های تخصصی</li>
+                        <li>مشاوره تخصصی (حوزه‌ی نفت و گاز)</li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="ui white icon small message">
+        <i class="small search outline icon"></i>
+
+        <div class="content">
+            <div class="header">
+                نتیجه‌ای برای جستجوی شما یافت نشد.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'javascripts/library/jquery-2.1.3.min.js' %}"></script>
+<script src="{% static 'semantic/semantic.min.js' %}"></script>
+<script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+<script src="{% static 'javascripts/user-dashboard.js' %}"></script>
+</body>
+
+</html>

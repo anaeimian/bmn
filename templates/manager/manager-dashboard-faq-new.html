@@ -1,0 +1,26 @@
+{% extends 'manager/manager-base.html' %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            افزودن سوال جدید
+        </div>
+
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/faqs/new/">
+                {% csrf_token %}
+                <div class="field {{ errors.0 }}">
+                    <label>سوال</label>
+                    <input type="text" name="question" value="{{ prev_question }}">
+                </div>
+                <div class="field {{ errors.1 }}">
+                    <label>پاسخ</label>
+                    <input type="text" name="answer" value="{{ prev_answer }}">
+                </div>
+                <button class="ui green button" type="submit">افزودن سوال جدید</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

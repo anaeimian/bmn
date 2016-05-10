@@ -1,0 +1,7 @@
+input.cal.btn{
+    margin-top: 26px;
+    background: url('../images/calendar.png');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+}

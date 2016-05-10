@@ -1,0 +1,157 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if form.errors %}
+            <div class="ui negative message">
+                {{ form.errors }}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                کاربر گرامی، لطفا برای شروع ایجاد درخواست خود، فرم زیر را به دقت تکمیل کنید.
+            </div>
+        {% endif %}
+    </div>
+    <form class="ui large form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="ui stacked left aligned segment">
+
+            <div class="field">
+
+                <h4 class="ui dividing header">
+                    تصاویر مدارک و رزومه
+                </h4>
+                <div class="three fields">
+
+                    <div class="required field">
+                        <label>
+                            عکس پرسنلی
+                        </label>
+                        {{ form.personneli_photo }}
+                    </div>
+
+                    <div class="required field">
+                        <label>
+                            تصویر کارت ملی
+                        </label>
+                        {{ form.national_id_photo }}
+                    </div>
+
+                    <div class="required field">
+                        <label>
+                            تصویر صفحه اول شناسنامه
+                        </label>
+                        {{ form.national_booklet_photo }}
+                    </div>
+                    <div class="required field">
+                        <label>
+                            رزومه
+                        </label>
+                        {{ form.resume }}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="field">
+
+                <div class="two fields">
+
+                    <div class="required field">
+                        <label>
+                            وضعیت تأهل
+                        </label>
+                        {{ form.marital_status }}
+                    </div>
+                    <div class="required field">
+                        <label>
+                            کد ملی
+                        </label>
+                        {{ form.social_id_number }}
+                    </div>
+                </div>
+            </div>
+
+
+            <h4 class="ui dividing header">
+                اطلاعات تماس
+            </h4>
+
+            <div class="two fields">
+
+                <div class="required field">
+                    <label>
+                        شماره تماس ضروری (داخل کشور)
+                    </label>
+                    {{ form.inner_phone_number }}
+                </div>
+
+                <div class="field">
+                    <label>
+                        شماره تماس خارج از کشور
+                    </label>
+                    {{ form.outer_phone_number }}
+                </div>
+            </div>
+
+
+            <h4 class="ui dividing header">
+                تاریخ تقریبی حضور در کشور
+            </h4>
+
+            <div class="two fields">
+                <div class="required field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>
+                                آغاز
+                            </label>
+                            {{ form.begin_date }}
+                        </div>
+                        <div class="required field">
+                            <input class="cal btn" type="button" id="period_start_btn"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>
+                                پایان
+                            </label>
+                            {{ form.end_date }}
+                        </div>
+                        <div class="field">
+                            <input class="cal btn" type="button" id="period_end_btn"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="center aligned column" id="">
+                <button type="submit" class="ui submit blue button">
+                    ایجاد درخواست
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/cons/signup.js' %}"></script>
+{% endblock %}

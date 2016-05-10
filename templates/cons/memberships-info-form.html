@@ -1,0 +1,95 @@
+{% extends 'users/user-base.html' %}
+
+{% load static %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'jalalicalendar/skins/calendar-green.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/calendar.css' %}">
+{% endblock %}
+
+
+{% block segment %}
+    <div class="ui segment">
+        {% if formset.errors %}
+            <div class="ui negative message">
+                {% for form in formset %}
+                    {{ form.errors }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ui info message">
+                اطلاعات مربوط به عضویت در انجمن‌های علمی/حرفه‌ای/صنعتی معتبر خود را به دقت در فرم زیر وارد کنید.
+            </div>
+        {% endif %}
+    </div>
+
+
+    <div class="ui segment">
+
+        <form class="ui large form" method="post" enctype="multipart/form-data" id="form"
+              action="/users/cons/memberships/">
+            <input type="hidden" value="1" id="num_of_forms_hidden" name="num_of_forms_hidden">
+            {% csrf_token %}
+
+            {{ formset.management_form }}
+
+            {% for form in formset.forms %}
+                <div class="ui segment">
+                    {{ form.id }}
+
+                    <div class="ui dividing header">
+                        اطلاعات مربوط به عضویت در انجمن
+                    </div>
+                    <div class="three fields">
+                        <div class="required field">
+                            <label>
+                                عنوان انجمن
+                            </label>
+                            {{ form.title_of_association }}
+                        </div>
+                        <div class="required field">
+                            <label>
+                                نوع عضویت
+                            </label>
+                            {{ form.membership_type }}
+                        </div>
+                        <div class="required field">
+                            <label>
+                                سابقه عضویت به ماه
+                            </label>
+                            {{ form.length }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            <button class="ui primary button" type="submit">
+                ذخیره اطلاعات
+            </button>
+        </form>
+    </div>
+
+    <div class="ui center aligned grid">
+        <div class="four wide column">
+            <br>
+            <button class="ui center aligned large green button" id="add_new_form">
+                + افزودن عضویت
+            </button>
+        </div>
+    </div>
+
+    <div></div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'jalalicalendar/jalali.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar.js' %}"></script>
+    <script src="{% static 'jalalicalendar/calendar-setup.js' %}"></script>
+    <script src="{% static 'jalalicalendar/lang/calendar-fa.js' %}"></script>
+    <script src="{% static 'javascripts/cons/addform.js' %}"></script>
+    <script src="{% static 'javascripts/cons/research.js' %}"></script>
+{% endblock %}

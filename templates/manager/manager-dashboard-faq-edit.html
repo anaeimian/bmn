@@ -1,0 +1,26 @@
+{% extends 'manager/manager-base.html' %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            ویرایش سوالات متداول
+        </div>
+
+        <div class="ui segment">
+            <form class="ui form" method="post" action="/manager/faqs/edit/{{ faq.id }}/">
+                {% csrf_token %}
+                <div class="field {{ errors.0 }}">
+                    <label>سوال</label>
+                    <input type="text" name="question" value="{{ faq.question_text }}">
+                </div>
+                <div class="field {{ errors.1 }}">
+                    <label>پاسخ</label>
+                    <input type="text" name="answer" value="{{ faq.answer_text }}">
+                </div>
+                <button class="ui green button" type="submit">ثبت تغییرات</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

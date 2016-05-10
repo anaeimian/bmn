@@ -1,0 +1,44 @@
+/*******************************
+            Dashboard
+*******************************/
+
+.mainmenu.container {
+    padding-top: 3em;
+}
+
+.stackable.menu .item img.logo {
+    margin-left: 1em;
+}
+
+.big.avatar {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.ui.segment {
+    padding-top: 2em;
+}
+
+.ui.comments {
+    max-width: 100%;
+}
+
+.ui.dividing.header {
+    padding-bottom: .75em;
+}
+
+/*body > .grid {*/
+/*height: 100%;*/
+/*}*/
+
+/*.image {*/
+/*margin-top: -100px;*/
+/*}*/
+
+/*.column {*/
+/*max-width: 450px;*/
+/*}*/
+
+/*.ui.message{*/
+/*text-align: left;*/
+/*}*/

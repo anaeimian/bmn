@@ -1,0 +1,187 @@
+{% extends 'users/user-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+
+    <div class="ui dividing header">
+        پیش نمایش و ثبت نهایی
+    </div>
+
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui segment">
+                <div class="ui dividing header">
+                    اطلاعات پروفایل کاربری
+                </div>
+
+                <table class="ui stackable celled table">
+                    <tr>
+                        <td>
+                            نام و نام خانوادگی
+                        </td>
+                        <td>{{ application.application.user.user.first_name }} {{ application.user.user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            جنسیت
+                        </td>
+                        <td>{{ application.application.user.get_gender_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            وضعیت سربازی
+                        </td>
+                        <td>{{ application.application.user.get_military_status_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            کشور محل تولد
+                        </td>
+                        <td>{{ application.application.user.get_birth_country_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            کشور محل سکونت
+                        </td>
+                        <td>{{ application.application.user.get_residence_country_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            تاریخ تولد
+                        </td>
+                        <td>{{ application.application.user.birth_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            شماره ملی/گذرنامه
+                        </td>
+                        <td>{{ application.application.user.nationalID }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            آخرین مقطع تحصیلی
+                        </td>
+                        <td>{{ application.application.user.get_education_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            دانشگاه
+                        </td>
+                        <td>{{ application.application.user.get_university_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            حوزه تخصصی
+                        </td>
+                        <td>{{ application.application.user.field }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ایمیل
+                        </td>
+                        <td>
+                            <a href="mailto:{{ application.application.user.user.email }}">
+                                {{ application.application.user.user.email }}
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            شماره تلفن
+                        </td>
+                        <td>
+                            {{ application.application.user.phone }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            تلفن همراه
+                        </td>
+                        <td>
+                            {{ application.application.user.mobile }}
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="ui dividing header">
+                    اطلاعات حرفه‌ای
+                </div>
+                <table class="ui stackable celled table">
+                    <tr>
+                        <td>
+                            پایگاه مقصد
+                        </td>
+                        <td>
+                            {% for p in priorities %}
+                                {{ p.association.user.first_name }}
+                                {% if not forloop.last %}
+                                    ، &nbsp;
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            حوزه تخصصی درخواست
+                        </td>
+                        <td>
+                            {{ application.field }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            تسهیلات مورد نظر
+                        </td>
+                        <td>
+                            {{ application.facility }}
+                        </td>
+                    </tr>
+                    {% for fr in file_requirementes %}
+                        <tr>
+                            <td>
+                                {{ fr.title }}
+                            </td>
+                            <td>
+                                <a href="{{ MEDIA_URL }}{{ fr.file.url }}" target="_blank">
+                                    دریافت فایل
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% for tr in text_requirements %}
+                        <tr>
+                            <td>
+                                {{ tr.title }}
+                            </td>
+                            <td>
+                                {{ tr.text }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        <br>
+        <form class="ui form" action="" method="POST">
+            {% csrf_token %}
+        <button class="ui green button" id="submit" type="submit">
+            <i class="ui large suitcase icon">
+
+            </i>
+ثبت درخواست همکاری
+        </button>
+            </form>
+        <br>
+        <br>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+    <script src="{% static 'javascripts/getcsrftoken.js' %}"></script>
+    <script src="{% static 'javascripts/users/new-coop-request.js' %}"></script>
+{% endblock %}

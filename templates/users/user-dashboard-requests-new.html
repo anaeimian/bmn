@@ -1,0 +1,123 @@
+{% extends 'users/user-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+
+        <div class="ui dividing header">
+            ایجاد درخواست جدید
+        </div>
+
+        <form class="ui form" method="POST" action="/users/requests/new/">
+            <div class="inline fields">
+                <div class="thirteen wide field">
+                    <div class="ui selection dropdown">
+                        <i class="dropdown icon"></i>
+                        <span class="default text">انتخاب نوع درخواست</span>
+
+                        <div class="menu">
+                            <div class="item">
+                                <i class="attention icon"></i>
+                                تسهیلات همکاری با متخصصان غیر مقیم
+                            </div>
+                            <div class="item">
+                                <i class="comment icon"></i>
+                                تسهیلات نظام وظیفه
+                            </div>
+                            <div class="item">
+                                <i class="conversation icon"></i>
+                                ارتباط با مدیریت
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="three wide field">
+                    <a class="ui fluid teal button" type="submit">
+                        ایجاد درخواست
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        <div class="ui dividing header">
+            درخواست‌های شما
+        </div>
+
+        <table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>نوع درخواست</th>
+                <th>تاریخ ایجاد</th>
+                <th>مسئول بررسی</th>
+                <th>ث</th>
+                <th>وضعیت</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td> تسهیلات</td>
+                <td>۱۳۹۴/۰۴/۱۰</td>
+                <td>Cell</td>
+                <td>Aell</td>
+                <td>Aell</td>
+            </tr>
+            <tr>
+                <td>ارتباط</td>
+                <td>۱۳۹۴/۰۴/۱۲</td>
+                <td>yCell</td>
+                <td>aCell</td>
+                <td>aCell</td>
+            </tr>
+            <tr>
+                <td>نظام وظیفه</td>
+                <td>۱۳۹۴/۰۱/۰۳</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+            <tr>
+                <td>نظام وظیفه</td>
+                <td>۱۳۹۴/۰۱/۰۳</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+
+            <tr>
+                <td>نظام وظیفه</td>
+                <td>۱۳۹۴/۰۱/۰۳</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="5">
+                    <div class="ui right floated pagination menu">
+
+                        <div class="icon item">
+                            <i class="left chevron icon"></i>
+                        </div>
+
+                        <div class="active item">۱</div>
+
+                        <a class="item">۲</a>
+
+                        <div class="item">...</div>
+
+                        <a class="item">۵</a>
+
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/library/tablesort.min.js' %}"></script>
+{% endblock %}

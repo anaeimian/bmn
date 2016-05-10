@@ -1,0 +1,75 @@
+{% extends 'manager/manager-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            تسهیلات ارائه شده
+        </div>
+
+        <div class="ui segment">
+
+            {% if form.errors %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+
+                <div class="header">
+                    خطا
+                </div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید تسهیلات ارائه شده را ویرایش کنید.
+            </p>
+
+            <form method="POST" action="/manager/facilities/" class="ui form">
+                {% csrf_token %}
+                <div class="two fields">
+                    <div class="ui input field">
+                        {{ form.title }}
+                    </div>
+                    <div class="ui input field">
+                        <button class="ui green button" type="submit">
+                        افزودن تسهیلات جدید
+                    </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {% if not facilities %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    هیچ تسهیلاتی وجود ندارد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for facility in facilities %}
+            <div class="ui segment">
+
+                <p><i class="suitcase icon"></i>
+                    {{ facility.title }}
+                </p>
+
+                <a class="ui teal button" href="/manager/facilities/edit/{{ facility.id }}/">
+                    ویرایش
+                </a>
+                <a class="ui red button" href="/manager/facilities/delete/{{ facility.id }}/">
+                    حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}

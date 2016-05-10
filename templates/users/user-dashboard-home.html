@@ -1,0 +1,109 @@
+{% extends 'users/user-base.html' %}
+{% block segment %}
+    <div class="ui segment">
+
+        <!--<div style  ="height: 5px"></div>-->
+
+        <div class="ui teal icon small message">
+
+            <i class="pin icon"></i>
+
+            <div class="content">
+                <div class="header">
+                    اخبار
+                </div>
+                <ul class="list">
+                    {% for new in news %}
+                        <li>
+                            <h3>{{ new.title }}</h3>
+                            {{ new.news_text }}
+                            [
+                            {% if new.attachment %}
+                                <a href="{{ MEDIA_URL }}{{ new.attachment.url }}">
+                                    دریافت ضمیمه
+                                </a>
+                            {% else %}
+                                ضممیه ندارد
+                            {% endif %}
+                            ]
+                        </li>
+                    {% endfor %}
+                    <br>
+                    <li>
+                        <a href="/users/news/">
+                            مشاهده همه اخبار
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {% for notice in notices %}
+            <div class="ui orange icon small message">
+                <i class="small alarm outline icon"></i>
+
+                <div class="content">
+                    <div class="header">
+                        {{ notice.title }}
+                    </div>
+                    <p>
+                        {{ notice.notice_text }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+
+
+        {% if new_messages %}
+            <div class="ui yellow icon small message">
+                <i class="small inbox icon"></i>
+
+                <div class="content">
+                    <p>
+                        شما
+                        <a href="/users/messages">
+                            {{ new_messages|length }}
+                            پیام
+                        </a>
+                        خوانده نشده دارید.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div style="height: 10px"></div>
+
+        <div class="">
+            <div class="ui dividing header">
+                وضعیت درخواست‌های شما
+            </div>
+            <div class="ui three statistics">
+                <div class="ui statistic">
+                    <div class="label">
+                        درخواست‌های ثبت‌شده
+                    </div>
+                    <div class="value">
+                        ۱۲
+                    </div>
+                </div>
+                <div class="ui statistic">
+                    <div class="label">
+                        درخواست‌های تایید شده
+                    </div>
+                    <div class="value">
+                        ۴
+                    </div>
+                </div>
+                <div class="ui statistic">
+                    <div class="label">
+                        درخواست‌های در دست بررسی
+                    </div>
+                    <div class="value">
+                        ۳
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

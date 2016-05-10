@@ -1,0 +1,59 @@
+/*******************************
+            Global
+*******************************/
+@import "fonts.css";
+
+html {
+    font-size: 12px;
+}
+
+html[lang="fa"], html[lang="ar"] {
+    direction: rtl;
+}
+
+*:not(i) {
+    font-family: 'MyTest', 'Lato', Tahoma, sans-serif !important;
+    font-weight: normal;
+}
+
+body {
+
+    background-size: cover;
+    background: #DADADA url('../images/symphony.png') fixed;
+
+    -webkit-font-smoothing: antialiased;
+
+}
+
+/*******************************
+      Persian Font Tweaks
+*******************************/
+
+.ui.button {
+    font-weight: normal;
+    padding-bottom: 0.99em;
+}
+
+.ui.label {
+    padding-bottom: 0.9em;
+}
+
+label {
+    padding-bottom: 0.3rem;
+}
+
+.message .header{
+    padding-bottom: .25em;
+}
+
+.ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number] {
+    /*line-height: 1em !important;*/
+    /*padding-top: 0.31em;*/
+    /*padding-bottom: 0.31em;*/
+}
+
+.ui.search.selection.dropdown>input.search{
+    /*line-height: normal !important;*/
+    /*padding-top: 0.31em;*/
+    /*padding-bottom: 0.31em;*/
+}

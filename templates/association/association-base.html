@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="image_src" type="image/jpeg" href="{% static 'images/logo.png' %}">
+
+    <!-- Site Properities -->
+    <title>پنل مدیران پایگاه ها</title>
+    <meta name="description" content="New Portal for National Elite Foundation">
+    <meta name="keywords" content="html5, ui, library, framework, javascript">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.rtl.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/global.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/user-dashboard.css' %}">
+
+</head>
+
+<body id="dashboard">
+
+<div class="mainmenu ui container">
+    <div class="ui stackable pointing large menu">
+
+        <a href="/association/" class="header item">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            خانه
+        </a>
+
+        <a href="/association/requests/" class="item">
+            <i class="icon file text outline"></i>
+            درخواست‌ها
+        </a>
+
+        <a href="/association/messages/" class="item">
+            <i class="icon mail"></i>
+            پیغام‌ها
+            {% if new_messages %}
+                <div class="ui red circular label">{{ new_messages }}</div>
+            {% endif %}
+        </a>
+<a href="/association/notifications/" class="item">
+            <i class="icon file text outline"></i>
+          اطلاعیه ها
+        </a>
+    <a href="/association/news/" class="item">
+            <i class="icon file text outline"></i>
+           اخبار
+        </a>
+
+
+        <div class="right menu">
+            <a href="/association/logout/" class="item">
+                خروج
+                <i class="icon sign out"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="ui segment">
+        {% block segment %}
+
+        {% endblock %}
+    </div>
+</div>
+
+<script src="{% static 'javascripts/library/jquery-2.1.3.min.js' %}"></script>
+<script src="{% static 'semantic/semantic.min.js' %}"></script>
+<script src="{% static 'javascripts/dropdown.js' %}"></script>
+
+{% block scripts %}
+{% endblock %}
+</body>
+
+</html>
