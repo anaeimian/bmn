@@ -10,10 +10,6 @@
   <a class="my item active" data-tab="third">درخواست های رد شده</a>
 </div>
 <div class="ui bottom attached tab segment" data-tab="first">
-<button class="ui green button">تایید</button>
-    <button class="ui orange button">رد</button>
-    <button class="ui blue button">بررسی</button>
-    <button class="ui red button">حذف</button>
   <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -40,6 +36,68 @@
   <div class="default text">بررسی نشده</div>
   <div class="menu">
     <div class="item" data-value="1">بررسی نشده</div>
+    <div class="item" data-value="0">در حال بررسی</div>
+
+  </div>
+</div>
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="5">
+                    <div class="ui right floated pagination menu">
+
+                        <div class="icon item">
+                            <i class="left chevron icon"></i>
+                        </div>
+
+                        <div class="active item">۱</div>
+
+                        <a class="item">۲</a>
+
+                        <div class="item">...</div>
+
+                        <a class="item">۵</a>
+
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+       </div>
+
+<div class="ui bottom attached tab segment" data-tab="second">
+<table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>انتخاب</th>
+                <th>نوع درخواست</th>
+                <th>تاریخ ایجاد</th>
+                <th>نام متقاضی</th>
+                <th>مشاهده</th>
+                <th>وضعیت</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td style="text-align: center"><input type="checkbox"> </td>
+                <td> تسهیلات نظام وظیفه</td>
+                <td>۱۳۹۴/۰۴/۱۰</td>
+                <td>اصغر اکبری</td>
+                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>
+                    <div class="ui selection dropdown">
+  <input type="hidden" name="status">
+  <i class="dropdown icon"></i>
+  <div class="default text">بررسی نشده</div>
+  <div class="menu">
     <div class="item" data-value="0">در حال بررسی</div>
       <div class="item" data-value="1">عقد قرارداد</div>
     <div class="item" data-value="0">در حال همکاری</div>
@@ -78,13 +136,71 @@
             </tr>
             </tfoot>
         </table>
-       </div>
-
-<div class="ui bottom attached tab segment" data-tab="second">
-
 </div>
 <div class="ui bottom attached tab segment active" data-tab="third">
+<table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>انتخاب</th>
+                <th>نوع درخواست</th>
+                <th>تاریخ ایجاد</th>
+                <th>نام متقاضی</th>
+                <th>مشاهده</th>
+                <th>وضعیت</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            <tr>
+                <td style="text-align: center"><input type="checkbox"> </td>
+                <td> تسهیلات نظام وظیفه</td>
+                <td>۱۳۹۴/۰۴/۱۰</td>
+                <td>اصغر اکبری</td>
+                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>
+                    <div class="ui selection dropdown">
+  <input type="hidden" name="status">
+  <i class="dropdown icon"></i>
+  <div class="default text">بررسی نشده</div>
+  <div class="menu">
+    <div class="item" data-value="0">در حال بررسی</div>
+      <div class="item" data-value="1">عقد قرارداد</div>
+    <div class="item" data-value="0">در حال همکاری</div>
+      <div class="item" data-value="1">اتمام همکاری </div>
+    <div class="item" data-value="0"> رد شده </div>
+
+  </div>
+</div>
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="5">
+                    <div class="ui right floated pagination menu">
+
+                        <div class="icon item">
+                            <i class="left chevron icon"></i>
+                        </div>
+
+                        <div class="active item">۱</div>
+
+                        <a class="item">۲</a>
+
+                        <div class="item">...</div>
+
+                        <a class="item">۵</a>
+
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
 </div>
 
 
