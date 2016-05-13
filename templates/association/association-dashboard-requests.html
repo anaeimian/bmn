@@ -5,11 +5,14 @@
             لیست درخواست‌ها
         </div>
         <div class="ui top attached tabular menu">
-  <a class="my item" data-tab="first">درخواست های جدید</a>
-  <a class="my item" data-tab="second">درخواست های تایید شده</a>
-  <a class="my item active" data-tab="third">درخواست های رد شده</a>
+  <a class="my item active" data-tab="first">درخواست های جدید</a>
+  <a class="my item" data-tab="second">درخواست های اخذ شده</a>
+  <a class="my item" data-tab="third">درخواست های بررسی شده</a>
+            <a class="my item" data-tab="fourth">درخواست های حذف شده</a>
 </div>
-<div class="ui bottom attached tab segment" data-tab="first">
+<div class="ui bottom attached tab segment active" data-tab="first">
+<button class="ui button red">حذف</button>
+<button class=" ui button yellow">ذخیره تغییرات</button>
   <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -23,6 +26,7 @@
             </thead>
 
             <tbody>
+            {% for app in apps %}
             <tr>
                 <td style="text-align: center"><input type="checkbox"> </td>
                 <td> تسهیلات نظام وظیفه</td>
@@ -42,7 +46,7 @@
 </div>
                 </td>
             </tr>
-
+    {% endfor %}
             </tbody>
             <tfoot>
             <tr>
@@ -137,7 +141,7 @@
             </tfoot>
         </table>
 </div>
-<div class="ui bottom attached tab segment active" data-tab="third">
+<div class="ui bottom attached tab segment" data-tab="third">
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -202,7 +206,71 @@
             </tfoot>
         </table>
 </div>
+<div class="ui bottom attached tab segment" data-tab="fourth">
+<table class="ui unstackable selectable sortable striped table">
+            <thead>
+            <tr>
+                <th>انتخاب</th>
+                <th>نوع درخواست</th>
+                <th>تاریخ ایجاد</th>
+                <th>نام متقاضی</th>
+                <th>مشاهده</th>
+                <th>وضعیت</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            <tr>
+                <td style="text-align: center"><input type="checkbox"> </td>
+                <td> تسهیلات نظام وظیفه</td>
+                <td>۱۳۹۴/۰۴/۱۰</td>
+                <td>اصغر اکبری</td>
+                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>
+                    <div class="ui selection dropdown">
+  <input type="hidden" name="status">
+  <i class="dropdown icon"></i>
+  <div class="default text">بررسی نشده</div>
+  <div class="menu">
+    <div class="item" data-value="0">در حال بررسی</div>
+      <div class="item" data-value="1">عقد قرارداد</div>
+    <div class="item" data-value="0">در حال همکاری</div>
+      <div class="item" data-value="1">اتمام همکاری </div>
+    <div class="item" data-value="0"> رد شده </div>
+
+  </div>
+</div>
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="10">
+                    <div class="ui right floated pagination menu">
+
+                        <div class="icon item">
+                            <i class="left chevron icon"></i>
+                        </div>
+
+                        <div class="active item">۱</div>
+
+                        <a class="item">۲</a>
+
+                        <div class="item">...</div>
+
+                        <a class="item">۵</a>
+
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+</div>
 
 
 

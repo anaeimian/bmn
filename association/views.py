@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
-
+from application.models import CoopApplication
 
 
 # Create your views here.
@@ -30,6 +30,7 @@ def home(request):
             })
 
 def requests(request):
+    apps = CoopApplication.objects.all()
     return render(request, 'association/association-dashboard-requests.html', {
-
+        'apps': apps
     })
