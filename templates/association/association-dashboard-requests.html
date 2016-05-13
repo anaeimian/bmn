@@ -29,20 +29,22 @@
             {% for app in apps %}
             <tr>
                 <td style="text-align: center"><input type="checkbox"> </td>
-                <td> تسهیلات نظام وظیفه</td>
-                <td>۱۳۹۴/۰۴/۱۰</td>
-                <td>اصغر اکبری</td>
-                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>{{ app.facility.title }}</td>
+                <td>{{ app.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                <td>{{ app.application.user.user.first_name }}</td>
+                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
   <i class="dropdown icon"></i>
-  <div class="default text">بررسی نشده</div>
+                            <div class="default text">بررسی نشده</div>
   <div class="menu">
     <div class="item" data-value="1">بررسی نشده</div>
     <div class="item" data-value="0">در حال بررسی</div>
 
   </div>
+
+
 </div>
                 </td>
             </tr>
@@ -77,6 +79,8 @@
        </div>
 
 <div class="ui bottom attached tab segment" data-tab="second">
+<button class="ui button red">حذف</button>
+<button class=" ui button yellow">ذخیره تغییرات</button>
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -90,11 +94,12 @@
             </thead>
 
             <tbody>
+            {% for receivedApp in receivedApps %}
             <tr>
                 <td style="text-align: center"><input type="checkbox"> </td>
-                <td> تسهیلات نظام وظیفه</td>
-                <td>۱۳۹۴/۰۴/۱۰</td>
-                <td>اصغر اکبری</td>
+                <td>{{ receivedApp.facility.title }}</td>
+                <td>{{ receivedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                <td>{{ receivedApp.application.user.user.first_name }}</td>
                 <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
@@ -112,7 +117,7 @@
 </div>
                 </td>
             </tr>
-
+{% endfor %}
             </tbody>
             <tfoot>
             <tr>
@@ -142,6 +147,8 @@
         </table>
 </div>
 <div class="ui bottom attached tab segment" data-tab="third">
+<button class="ui button red">حذف</button>
+<button class=" ui button yellow">ذخیره تغییرات</button>
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -155,11 +162,12 @@
             </thead>
 
             <tbody>
+            {% for reviewedApp in reviewedApps %}
             <tr>
                 <td style="text-align: center"><input type="checkbox"> </td>
-                <td> تسهیلات نظام وظیفه</td>
-                <td>۱۳۹۴/۰۴/۱۰</td>
-                <td>اصغر اکبری</td>
+                <td>{{ reviewedApp.facility.title }}</td>
+                <td>{{ reviewedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                <td>{{ reviewedApp.application.user.user.first_name }}</td>
                 <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
@@ -177,7 +185,7 @@
 </div>
                 </td>
             </tr>
-
+{% endfor %}
             </tbody>
             <tfoot>
             <tr>
@@ -208,6 +216,8 @@
 </div>
 <div class="ui bottom attached tab segment" data-tab="fourth">
 <table class="ui unstackable selectable sortable striped table">
+    <button class="ui button green">بازیابی</button>
+<button class=" ui button yellow">ذخیره تغییرات</button>
             <thead>
             <tr>
                 <th>انتخاب</th>
@@ -220,11 +230,12 @@
             </thead>
 
             <tbody>
+            {% for deletedApp in deletedApps %}
             <tr>
                 <td style="text-align: center"><input type="checkbox"> </td>
-                <td> تسهیلات نظام وظیفه</td>
-                <td>۱۳۹۴/۰۴/۱۰</td>
-                <td>اصغر اکبری</td>
+                <td>{{ deletedApp.facility.title }}</td>
+                <td>{{ deletedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                <td>{{ deletedApp.application.user.user.first_name }}</td>
                 <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
@@ -242,7 +253,7 @@
 </div>
                 </td>
             </tr>
-
+{% endfor %}
             </tbody>
             <tfoot>
             <tr>
