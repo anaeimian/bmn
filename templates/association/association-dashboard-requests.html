@@ -11,10 +11,10 @@
             <a class="my item" data-tab="fourth">درخواست های حذف شده</a>
 </div>
 <div class="ui bottom attached tab segment active" data-tab="first">
-<form method="post" action="deleteNew/">
+<form method="post" action="deleteRequest/">
 {% csrf_token %}
 <button class="ui button red" type="submit" >حذف</button>
-<button class=" ui button yellow" >ذخیره تغییرات</button>
+<button class=" ui button olive" >ذخیره تغییرات</button>
   <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -82,8 +82,10 @@
        </div>
 
 <div class="ui bottom attached tab segment" data-tab="second">
-<button class="ui button red">حذف</button>
-<button class=" ui button yellow">ذخیره تغییرات</button>
+<form method="post" action="deleteRequest/">
+{% csrf_token %}
+<button class="ui button red" type="submit" >حذف</button>
+<button class=" ui button olive">ذخیره تغییرات</button>
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -103,7 +105,7 @@
                 <td>{{ receivedApp.facility.title }}</td>
                 <td>{{ receivedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
                 <td>{{ receivedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
@@ -148,10 +150,13 @@
             </tr>
             </tfoot>
         </table>
+</form>
 </div>
 <div class="ui bottom attached tab segment" data-tab="third">
-<button class="ui button red">حذف</button>
-<button class=" ui button yellow">ذخیره تغییرات</button>
+<form method="post" action="deleteRequest/">
+{% csrf_token %}
+<button class="ui button red" type="submit" >حذف</button>
+<button class=" ui button olive">ذخیره تغییرات</button>
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -171,7 +176,7 @@
                 <td>{{ reviewedApp.facility.title }}</td>
                 <td>{{ reviewedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
                 <td>{{ reviewedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
@@ -216,11 +221,15 @@
             </tr>
             </tfoot>
         </table>
+</form>
 </div>
 <div class="ui bottom attached tab segment" data-tab="fourth">
+<form method="post" action="deleteRequest/">
+{% csrf_token %}
+ <button class="ui button green" type="submit" >بازیابی</button>
+<button class=" ui button olive">ذخیره تغییرات</button>
 <table class="ui unstackable selectable sortable striped table">
-    <button class="ui button green">بازیابی</button>
-<button class=" ui button yellow">ذخیره تغییرات</button>
+
             <thead>
             <tr>
                 <th>انتخاب</th>
@@ -239,7 +248,7 @@
                 <td>{{ deletedApp.facility.title }}</td>
                 <td>{{ deletedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
                 <td>{{ deletedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui yellow button">مشاهده اطلاعات درخواست</button> </td>
+                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
@@ -284,6 +293,7 @@
             </tr>
             </tfoot>
         </table>
+</form>
 </div>
 
 
