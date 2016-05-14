@@ -46,16 +46,32 @@ def requests(request):
 def delete_request(request):
     if request.method == "POST":
         temp = request.POST.getlist('which-button')
+        print(temp)
         for value in temp:
             if value == '1':
                 list_of_changes= request.POST.getlist('status')
-                print(list_of_changes)
                 list_of_ids = request.POST.getlist('app-id')
-                print(list_of_ids)
                 counter =0
-                for id in list_of_ids:
-                    CoopApplication.objects.all().filter(id=id).update(status = list_of_changes[counter])
-                    counter+=1
+                if list_of_changes != []:
+                    for id in list_of_ids:
+                        CoopApplication.objects.all().filter(id=id).update(status = int(list_of_changes[counter])+1)
+                        counter+=1
+                list_of_changes = request.POST.getlist('rec-status')
+                list_of_ids = request.POST.getlist('rec-app-id')
+                counter1 = 0
+                if list_of_changes != []:
+                    print('true')
+                    for id in list_of_ids:
+                        print(int(list_of_changes[counter]) + 1)
+                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
+                        counter += 1
+                list_of_changes = request.POST.getlist('rev-status')
+                list_of_ids = request.POST.getlist('rev-app-id')
+                counter = 0
+                if list_of_changes != []:
+                    for id in list_of_ids:
+                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
+                        counter += 1
             else:
                 list_of_delete = request.POST.getlist('new_del_inputs')
                 for del_id in list_of_delete:
@@ -75,8 +91,3 @@ def delete_request(request):
                         CoopApplication.objects.all().filter(id=del_id).update(is_deleted=False)
     return HttpResponseRedirect('/association/requests/')
 
-def save_changes(request):
-    print('ye baby')
-    if request.method == "POST":
-        temp = request.POST.getlist('which-button')
-        print(temp)
