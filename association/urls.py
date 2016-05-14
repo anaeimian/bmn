@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^news/$', 'association.views.news'),
     url(r'^notices/$', 'association.views.notices'),
     url(r'requests/$', 'association.views.requests'),
-    url(r'deleteNew/$', 'association.views.delete_new'),
+    url(r'deleteRequest/$', 'association.views.delete_new'),
     url(r'^$', 'association.views.home'),
 ]
