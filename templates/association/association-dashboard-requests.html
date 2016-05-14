@@ -14,7 +14,14 @@
 <form method="post" action="deleteRequest/">
 {% csrf_token %}
 <button class="ui button red" type="submit" >حذف</button>
-<button class=" ui button olive" >ذخیره تغییرات</button>
+<button id="save-changes"  onclick="change()" class=" ui button olive" type="submit" >ذخیره تغییرات</button>
+<input name="temp" type="hidden" value="temp">
+<input id="which-button"  type="hidden" value="0" name="which-button">
+<script>
+    function change(){
+        document.getElementById('which-button').value='1'
+    }
+</script>
   <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -30,14 +37,15 @@
             <tbody>
             {% for app in apps %}
             <tr>
+            <input name="app-id" value="{{ app.id }}">
                 <td style="text-align: center"><input type="checkbox" name="new_del_inputs" value="{{ app.id }}"> </td>
                 <td>{{ app.facility.title }}</td>
-                <td>{{ app.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
-                <td>{{ app.application.user.user.first_name }}</td>
+                <td>{{ app.application.finalization_date }}</td>
+                <td>{{ app.application.user.user.first_name }} &nbsp; {{ app.application.user.user.last_name }}</td>
                 <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
                 <td>
                     <div class="ui selection dropdown">
-  <input type="hidden" name="status">
+  <input type="hidden" name="status" >
   <i class="dropdown icon"></i>
                             <div class="default text">
                                 {% if app.status == "1" %}
@@ -45,13 +53,14 @@
                             {% endif %}
                             </div>
   <div class="menu">
-    <div class="item" data-value="1">بررسی نشده</div>
-    <div class="item" data-value="0">در حال بررسی</div>
+    <div class="item" data-value="0">بررسی نشده</div>
+    <div class="item" data-value="1">در حال بررسی</div>
 
   </div>
 
 
 </div>
+                <input type="hidden" name="new_del_inputs" value=""> </td>
                 </td>
             </tr>
     {% endfor %}
@@ -90,6 +99,7 @@
 {% csrf_token %}
 <button class="ui button red" type="submit" >حذف</button>
 <button class=" ui button olive">ذخیره تغییرات</button>
+
 <table class="ui unstackable selectable sortable striped table">
             <thead>
             <tr>
@@ -127,9 +137,9 @@
   <div class="menu">
     <div class="item" data-value="0">در حال بررسی</div>
       <div class="item" data-value="1">عقد قرارداد</div>
-    <div class="item" data-value="0">در حال همکاری</div>
-      <div class="item" data-value="1">اتمام همکاری </div>
-    <div class="item" data-value="0"> رد شده </div>
+    <div class="item" data-value="2">در حال همکاری</div>
+      <div class="item" data-value="3">اتمام همکاری </div>
+    <div class="item" data-value="4"> رد شده </div>
 
   </div>
 </div>
@@ -203,9 +213,9 @@
   <div class="menu">
     <div class="item" data-value="0">در حال بررسی</div>
       <div class="item" data-value="1">عقد قرارداد</div>
-    <div class="item" data-value="0">در حال همکاری</div>
-      <div class="item" data-value="1">اتمام همکاری </div>
-    <div class="item" data-value="0"> رد شده </div>
+    <div class="item" data-value="2">در حال همکاری</div>
+      <div class="item" data-value="3">اتمام همکاری </div>
+    <div class="item" data-value="4"> رد شده </div>
 
   </div>
 </div>
@@ -311,6 +321,7 @@
             </tr>
             </tfoot>
         </table>
+
 </form>
 </div>
 
