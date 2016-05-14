@@ -3,6 +3,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
 from application.models import CoopApplication
 from django.http import HttpResponseRedirect
+from manager.models import Question, News, Notice
 
 
 # Create your views here.
@@ -30,23 +31,44 @@ def home(request):
                 'alerts': alerts,
             })
 
+
 def requests(request):
-    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted = False)
-    receivedRequests = CoopApplication.objects.all().exclude(status =1).exclude(status=5).exclude(status=6).exclude(status=7).exclude(is_deleted = False)
-    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(status=4).exclude(
+    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=False)
+    receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
         status=7).exclude(is_deleted=False)
-    deletedRequest = CoopApplication.objects.all().filter(is_deleted = True)
+    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
+        status=4).exclude(
+        status=7).exclude(is_deleted=False)
+    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
     return render(request, 'association/association-dashboard-requests.html', {
         'apps': apps,
-        'receivedApps' : receivedRequests,
-        'reviewedApps' : reviewedRequests,
-        'deletedApps' : deletedRequest
+        'receivedApps': receivedRequests,
+        'reviewedApps': reviewedRequests,
+        'deletedApps': deletedRequest
     })
+
+
 def delete_new(request):
     if request.method == "POST":
         print("true")
         list_of_delete = request.POST.getlist('new_del_inputs')
         print(list_of_delete)
         for del_id in list_of_delete:
-            CoopApplication.objects.all().filter(id=del_id)[0].is_deleted=True
+            CoopApplication.objects.all().filter(id=del_id)[0].is_deleted = True
     return HttpResponseRedirect('/association/requests/')
+
+
+# @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
+# @login_required(login_url='/manager/')
+def notices(request):
+    notices = Notice.objects.all()[0:10:-1]
+    return render(request, 'association/association-dashboard-notices.html', {
+        'notices': notices
+    })
+
+
+def news(request):
+    news = News.objects.all()[0:10:-1]
+    return render(request, 'association/association-dashboard-news.html', {
+        'news': news,
+    })

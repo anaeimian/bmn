@@ -1,0 +1,72 @@
+{% extends 'association/association-base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+        <div class="ui dividing header">
+            اخبار سایت
+        </div>
+
+        <div class="ui segment">
+
+            <p><i class="info icon"></i>
+                در این قسمت می‌توانید اخبار سایت را ویرایش، حذف و یا اضافه کنید.
+            </p>
+
+            <a class="ui green button" href="/manager/news/new/">
+                افزودن خبر جدید
+            </a>
+            <a class="ui yellow button" href="/manager/news/all/">
+                مشاهده همه اخبار
+            </a>
+        </div>
+
+        {% if not news %}
+            <div class="ui segment">
+
+                <p><i class="info icon"></i>
+                    هیچ خبری وجود ندارد.
+                </p>
+            </div>
+        {% endif %}
+
+        {% for new in news %}
+            <div class="ui segment">
+                <div class="ui green header">
+                    {{ new.title }} &nbsp;
+                    (
+                    تاریخ ایجاد:
+                    {{ new.creation_date|to_jdate }}
+                    )
+                </div>
+                <p><i class="pin icon"></i>
+                    {{ new.news_text }}
+                    &nbsp;
+                    {% if new.attachment %}
+                        [
+                        <a class="ui teal" href="{{ MEDIA_URL }}{{ new.attachment.url }}">دریافت ضمیمه</a>
+                        ]
+                    {% else %}
+                        [
+                        ضمیمه ندارد
+                        ]
+                    {% endif %}
+                </p>
+
+                <a class="ui teal button" href="/manager/news/edit/{{ new.id }}/">
+                    ویرایش
+                </a>
+                <a class="ui red button" href="/manager/news/delete/{{ new.id }}/">
+                    حذف
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/remove-items.js' %}"></script>
+{% endblock %}
