@@ -39,7 +39,11 @@
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
   <i class="dropdown icon"></i>
-                            <div class="default text">بررسی نشده</div>
+                            <div class="default text">
+                                {% if app.status == "1" %}
+                                    بررسی نشده
+                            {% endif %}
+                            </div>
   <div class="menu">
     <div class="item" data-value="1">بررسی نشده</div>
     <div class="item" data-value="0">در حال بررسی</div>
@@ -110,7 +114,16 @@
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
   <i class="dropdown icon"></i>
-  <div class="default text">بررسی نشده</div>
+  <div class="default text">   {% if receivedApp.status == "2" %}
+در حال بررسی
+                            {% endif %}
+  {% if receivedApp.status == "3" %}
+                                   عقد قرارداد
+                            {% endif %}
+  {% if receivedApp.status == "4" %}
+                                   در حال همکاری
+                            {% endif %}
+ </div>
   <div class="menu">
     <div class="item" data-value="0">در حال بررسی</div>
       <div class="item" data-value="1">عقد قرارداد</div>
@@ -181,7 +194,12 @@
                     <div class="ui selection dropdown">
   <input type="hidden" name="status">
   <i class="dropdown icon"></i>
-  <div class="default text">بررسی نشده</div>
+  <div class="default text">{% if reviewedApp.status == "5" %}
+                                 اتمام همکاری
+                            {% endif %}
+  {% if reviewedApp.status == "6" %}
+                                  رد شده
+                            {% endif %}</div>
   <div class="menu">
     <div class="item" data-value="0">در حال بررسی</div>
       <div class="item" data-value="1">عقد قرارداد</div>

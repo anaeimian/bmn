@@ -3,6 +3,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
 from application.models import CoopApplication
 from django.http import HttpResponseRedirect
+from django.template.defaulttags import register
 
 
 # Create your views here.
@@ -58,3 +59,7 @@ def delete_request(request):
         for del_id in list_of_delete:
             CoopApplication.objects.all().filter(id=del_id).update(is_deleted=False)
     return HttpResponseRedirect('/association/requests/')
+
+@register.filter(name='lookup')
+def cut(value, arg):
+    return value[arg]
