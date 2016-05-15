@@ -1,335 +1,365 @@
 {% extends 'association/association-base.html' %}
 {% block segment %}
-{#    < class="ui segment">#}
-        <div class="ui dividing header">
-            لیست درخواست‌ها
-        </div>
-        <div class="ui top attached tabular menu">
-  <a class="my item active" data-tab="first">درخواست های جدید</a>
-  <a class="my item" data-tab="second">درخواست های اخذ شده</a>
-  <a class="my item" data-tab="third">درخواست های بررسی شده</a>
-            <a class="my item" data-tab="fourth">درخواست های حذف شده</a>
-</div>
-<div class="ui bottom attached tab segment active" data-tab="first">
-<form method="post" action="deleteRequest/">
-{% csrf_token %}
-<button class="ui button red" type="submit" >حذف</button>
-<button id="save-changes"  onclick="change()" class=" ui button olive" type="submit" >ذخیره تغییرات</button>
-<input name="temp" type="hidden" value="temp">
-<input class="which-button"  type="hidden" value="0" name="which-button">
+    {#    < class="ui segment">#}
+    <div class="ui dividing header">
+        لیست درخواست‌ها
+    </div>
+    <div class="ui top attached tabular menu">
+        <a class="my item active" data-tab="first">درخواست های جدید</a>
+        <a class="my item" data-tab="second">درخواست های اخذ شده</a>
+        <a class="my item" data-tab="third">درخواست های بررسی شده</a>
+        <a class="my item" data-tab="fourth">درخواست های حذف شده</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="first">
+        <form method="post" action="deleteRequest/">
+            {% csrf_token %}
+            <button class="ui button red" type="submit">حذف</button>
+            <button id="save-changes" onclick="change()" class=" ui button olive" type="submit">ذخیره تغییرات</button>
+            <input name="temp" type="hidden" value="temp">
+            <input class="which-button" type="hidden" value="0" name="which-button">
 
-  <table class="ui unstackable selectable sortable striped table">
-            <thead>
-            <tr>
-                <th>انتخاب</th>
-                <th>نوع درخواست</th>
-                <th>تاریخ ایجاد</th>
-                <th>نام متقاضی</th>
-                <th>مشاهده</th>
-                <th>وضعیت</th>
-            </tr>
-            </thead>
+            <table class="ui unstackable selectable sortable striped table">
+                <thead>
+                <tr>
+                    <th>انتخاب</th>
+                    <th>نوع درخواست</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>نام متقاضی</th>
+                    <th>مشاهده</th>
+                    <th>وضعیت</th>
+                </tr>
+                </thead>
 
-            <tbody>
-            {% for app in apps %}
-            <tr>
-            <input type="hidden" name="app-id" value="{{ app.id }}">
-                <td style="text-align: center"><input type="checkbox" name="new_del_inputs" value="{{ app.id }}"> </td>
-                <td>{{ app.facility.title }}</td>
-                <td>{{ app.application.finalization_date }}</td>
-                <td>{{ app.application.user.user.first_name }} &nbsp; {{ app.application.user.user.last_name }}</td>
-                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
-                <td>
-                    <div class="ui selection dropdown">
-  <input type="hidden" name="status" >
-  <i class="dropdown icon"></i>
-                            <div class="default text">
-                                {% if app.status == "1" %}
-                                    بررسی نشده
-                            {% endif %}
+                <tbody>
+                {% for app in apps %}
+                    <tr>
+                        <input type="hidden" name="app-id" value="{{ app.id }}">
+                        <td style="text-align: center"><input type="checkbox" name="new_del_inputs"
+                                                              value="{{ app.id }}"></td>
+                        <td>{{ app.facility.title }}</td>
+                        <td>{{ app.application.finalization_date }}</td>
+                        <td>{{ app.application.user.user.first_name }}
+                            &nbsp; {{ app.application.user.user.last_name }}</td>
+                        <td>
+                            <button class="ui blue button" onclick="showDetails()">مشاهده اطلاعات درخواست</button>
+                        </td>
+                        <td>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="status">
+                                <i class="dropdown icon"></i>
+
+                                <div class="default text">
+                                    {% if app.status == "1" %}
+                                        بررسی نشده
+                                    {% endif %}
+                                </div>
+                                <div class="menu">
+                                    <div class="item" data-value="0">بررسی نشده</div>
+                                    <div class="item" data-value="1">در حال بررسی</div>
+
+                                </div>
+
+
                             </div>
-  <div class="menu">
-    <div class="item" data-value="0">بررسی نشده</div>
-    <div class="item" data-value="1">در حال بررسی</div>
+                            <input type="hidden" name="new_del_inputs" value=""></td>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="10">
+                        <div class="ui right floated pagination menu">
 
-  </div>
+                            <div class="icon item">
+                                <i class="left chevron icon"></i>
+                            </div>
 
+                            <div class="active item">۱</div>
 
-</div>
-                <input type="hidden" name="new_del_inputs" value=""> </td>
-                </td>
-            </tr>
-    {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="10">
-                    <div class="ui right floated pagination menu">
+                            <a class="item">۲</a>
 
-                        <div class="icon item">
-                            <i class="left chevron icon"></i>
+                            <div class="item">...</div>
+
+                            <a class="item">۵</a>
+
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+
                         </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
 
-                        <div class="active item">۱</div>
+    <div class="ui bottom attached tab segment" data-tab="second">
+        <form method="post" action="deleteRequest/">
+            {% csrf_token %}
+            <button class="ui button red" type="submit">حذف</button>
+            <button class=" ui button olive" onclick="change()" type="submit">ذخیره تغییرات</button>
+            <input class="which-button" type="hidden" value="0" name="which-button">
+            <table class="ui unstackable selectable sortable striped table">
+                <thead>
+                <tr>
+                    <th>انتخاب</th>
+                    <th>نوع درخواست</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>نام متقاضی</th>
+                    <th>مشاهده</th>
+                    <th>وضعیت</th>
+                </tr>
+                </thead>
 
-                        <a class="item">۲</a>
+                <tbody>
+                {% for receivedApp in receivedApps %}
+                    <tr>
+                        <input type="hidden" name="rec-app-id" value="{{ receivedApp.id }}">
+                        <td style="text-align: center"><input type="checkbox" name="rec_del_inputs"
+                                                              value="{{ receivedApp.id }}"></td>
+                        <td>{{ receivedApp.facility.title }}</td>
+                        <td>{{ receivedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                        <td>{{ receivedApp.application.user.user.first_name }}</td>
+                        <td>
+                            <button class="ui blue button">مشاهده اطلاعات درخواست</button>
+                        </td>
+                        <td>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="rec-status">
+                                <i class="dropdown icon"></i>
 
-                        <div class="item">...</div>
+                                <div class="default text">   {% if receivedApp.status == "2" %}
+                                    در حال بررسی
+                                {% endif %}
+                                    {% if receivedApp.status == "3" %}
+                                        عقد قرارداد
+                                    {% endif %}
+                                    {% if receivedApp.status == "4" %}
+                                        در حال همکاری
+                                    {% endif %}
+                                </div>
+                                <div class="menu">
+                                    <div class="item" data-value="0">در حال بررسی</div>
+                                    <div class="item" data-value="1">عقد قرارداد</div>
+                                    <div class="item" data-value="2">در حال همکاری</div>
+                                    <div class="item" data-value="3">اتمام همکاری</div>
+                                    <div class="item" data-value="4"> رد شده</div>
 
-                        <a class="item">۵</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="10">
+                        <div class="ui right floated pagination menu">
 
-                        <a class="icon item">
-                            <i class="right chevron icon"></i>
-                        </a>
+                            <div class="icon item">
+                                <i class="left chevron icon"></i>
+                            </div>
 
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
-</form>
-       </div>
+                            <div class="active item">۱</div>
 
-<div class="ui bottom attached tab segment" data-tab="second">
-<form method="post" action="deleteRequest/">
-{% csrf_token %}
-<button class="ui button red" type="submit" >حذف</button>
-<button class=" ui button olive" onclick="change()" type="submit">ذخیره تغییرات</button>
-<input class="which-button"  type="hidden" value="0" name="which-button">
-<table class="ui unstackable selectable sortable striped table">
-            <thead>
-            <tr>
-                <th>انتخاب</th>
-                <th>نوع درخواست</th>
-                <th>تاریخ ایجاد</th>
-                <th>نام متقاضی</th>
-                <th>مشاهده</th>
-                <th>وضعیت</th>
-            </tr>
-            </thead>
+                            <a class="item">۲</a>
 
-            <tbody>
-            {% for receivedApp in receivedApps %}
-            <tr>
-            <input type="hidden" name="rec-app-id" value="{{ receivedApp.id }}">
-                <td style="text-align: center"><input type="checkbox" name="rec_del_inputs" value="{{ receivedApp.id }}"> </td>
-                <td>{{ receivedApp.facility.title }}</td>
-                <td>{{ receivedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
-                <td>{{ receivedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
-                <td>
-                    <div class="ui selection dropdown">
-  <input type="hidden" name="rec-status">
-  <i class="dropdown icon"></i>
-  <div class="default text">   {% if receivedApp.status == "2" %}
-در حال بررسی
-                            {% endif %}
-  {% if receivedApp.status == "3" %}
-                                   عقد قرارداد
-                            {% endif %}
-  {% if receivedApp.status == "4" %}
-                                   در حال همکاری
-                            {% endif %}
- </div>
-  <div class="menu">
-    <div class="item" data-value="0">در حال بررسی</div>
-      <div class="item" data-value="1">عقد قرارداد</div>
-    <div class="item" data-value="2">در حال همکاری</div>
-      <div class="item" data-value="3">اتمام همکاری </div>
-    <div class="item" data-value="4"> رد شده </div>
+                            <div class="item">...</div>
 
-  </div>
-</div>
-                </td>
-            </tr>
-{% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="10">
-                    <div class="ui right floated pagination menu">
+                            <a class="item">۵</a>
 
-                        <div class="icon item">
-                            <i class="left chevron icon"></i>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+
                         </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third">
+        <form method="post" action="deleteRequest/">
+            {% csrf_token %}
+            <button class="ui button red" type="submit">حذف</button>
+            <button class=" ui button olive" onclick="change()" type="submit">ذخیره تغییرات</button>
+            <input class="which-button" type="hidden" value="0" name="which-button">
+            <table class="ui unstackable selectable sortable striped table">
+                <thead>
+                <tr>
+                    <th>انتخاب</th>
+                    <th>نوع درخواست</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>نام متقاضی</th>
+                    <th>مشاهده</th>
+                    <th>وضعیت</th>
+                </tr>
+                </thead>
 
-                        <div class="active item">۱</div>
+                <tbody>
+                {% for reviewedApp in reviewedApps %}
+                    <tr>
+                        <input type="hidden" name="rev-app-id" value="{{ reviewedApp.id }}">
+                        <td style="text-align: center"><input type="checkbox" name="rev_del_inputs"
+                                                              value="{{ reviewedApp.id }}"></td>
+                        <td>{{ reviewedApp.facility.title }}</td>
+                        <td>{{ reviewedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                        <td>{{ reviewedApp.application.user.user.first_name }}</td>
+                        <td>
+                            <button class="ui blue button">مشاهده اطلاعات درخواست</button>
+                        </td>
+                        <td>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="rec-status">
+                                <i class="dropdown icon"></i>
 
-                        <a class="item">۲</a>
+                                <div class="default text">{% if reviewedApp.status == "5" %}
+                                    اتمام همکاری
+                                {% endif %}
+                                    {% if reviewedApp.status == "6" %}
+                                        رد شده
+                                    {% endif %}</div>
+                                <div class="menu">
+                                    <div class="item" data-value="0">در حال بررسی</div>
+                                    <div class="item" data-value="1">عقد قرارداد</div>
+                                    <div class="item" data-value="2">در حال همکاری</div>
+                                    <div class="item" data-value="3">اتمام همکاری</div>
+                                    <div class="item" data-value="4"> رد شده</div>
 
-                        <div class="item">...</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="10">
+                        <div class="ui right floated pagination menu">
 
-                        <a class="item">۵</a>
+                            <div class="icon item">
+                                <i class="left chevron icon"></i>
+                            </div>
 
-                        <a class="icon item">
-                            <i class="right chevron icon"></i>
-                        </a>
+                            <div class="active item">۱</div>
 
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
-</form>
-</div>
-<div class="ui bottom attached tab segment" data-tab="third">
-<form method="post" action="deleteRequest/">
-{% csrf_token %}
-<button class="ui button red" type="submit" >حذف</button>
-<button class=" ui button olive" onclick="change()" type="submit">ذخیره تغییرات</button>
-<input class="which-button"  type="hidden" value="0" name="which-button">
-<table class="ui unstackable selectable sortable striped table">
-            <thead>
-            <tr>
-                <th>انتخاب</th>
-                <th>نوع درخواست</th>
-                <th>تاریخ ایجاد</th>
-                <th>نام متقاضی</th>
-                <th>مشاهده</th>
-                <th>وضعیت</th>
-            </tr>
-            </thead>
+                            <a class="item">۲</a>
 
-            <tbody>
-            {% for reviewedApp in reviewedApps %}
-            <tr>
-            <input type="hidden" name="rev-app-id" value="{{ reviewedApp.id }}">
-                <td style="text-align: center"><input type="checkbox" name="rev_del_inputs" value="{{ reviewedApp.id }}"> </td>
-                <td>{{ reviewedApp.facility.title }}</td>
-                <td>{{ reviewedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
-                <td>{{ reviewedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
-                <td>
-                    <div class="ui selection dropdown">
-  <input type="hidden" name="rec-status">
-  <i class="dropdown icon"></i>
-  <div class="default text">{% if reviewedApp.status == "5" %}
-                                 اتمام همکاری
-                            {% endif %}
-  {% if reviewedApp.status == "6" %}
-                                  رد شده
-                            {% endif %}</div>
-  <div class="menu">
-    <div class="item" data-value="0">در حال بررسی</div>
-      <div class="item" data-value="1">عقد قرارداد</div>
-    <div class="item" data-value="2">در حال همکاری</div>
-      <div class="item" data-value="3">اتمام همکاری </div>
-    <div class="item" data-value="4"> رد شده </div>
+                            <div class="item">...</div>
 
-  </div>
-</div>
-                </td>
-            </tr>
-{% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="10">
-                    <div class="ui right floated pagination menu">
+                            <a class="item">۵</a>
 
-                        <div class="icon item">
-                            <i class="left chevron icon"></i>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+
                         </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="fourth">
+        <form method="post" action="deleteRequest/">
+            {% csrf_token %}
+            <button class="ui button green" type="submit">بازیابی</button>
+            <table class="ui unstackable selectable sortable striped table">
 
-                        <div class="active item">۱</div>
+                <thead>
+                <tr>
+                    <th>انتخاب</th>
+                    <th>نوع درخواست</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>نام متقاضی</th>
+                    <th>مشاهده</th>
+                    <th>وضعیت</th>
+                </tr>
+                </thead>
 
-                        <a class="item">۲</a>
+                <tbody>
+                {% for deletedApp in deletedApps %}
+                    <tr>
+                        <td style="text-align: center"><input type="checkbox" name="del_rest_inputs"
+                                                              value="{{ deletedApp.id }}"></td>
+                        <td>{{ deletedApp.facility.title }}</td>
+                        <td>{{ deletedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
+                        <td>{{ deletedApp.application.user.user.first_name }}</td>
+                        <td>
+                            <button type="button" class="ui blue button" onclick="showDetails()">مشاهده اطلاعات
+                                درخواست
+                            </button>
+                        </td>
+                        <td>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="rev-status">
+                                <i class="dropdown icon"></i>
 
-                        <div class="item">...</div>
+                                <div class="default text">بررسی نشده</div>
+                                <div class="menu">
+                                    <div class="item" data-value="0">در حال بررسی</div>
+                                    <div class="item" data-value="1">عقد قرارداد</div>
+                                    <div class="item" data-value="0">در حال همکاری</div>
+                                    <div class="item" data-value="1">اتمام همکاری</div>
+                                    <div class="item" data-value="0"> رد شده</div>
 
-                        <a class="item">۵</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="10">
+                        <div class="ui right floated pagination menu">
 
-                        <a class="icon item">
-                            <i class="right chevron icon"></i>
-                        </a>
+                            <div class="icon item">
+                                <i class="left chevron icon"></i>
+                            </div>
 
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
-</form>
-</div>
-<div class="ui bottom attached tab segment" data-tab="fourth">
-<form method="post" action="deleteRequest/">
-{% csrf_token %}
- <button class="ui button green" type="submit" >بازیابی</button>
-<table class="ui unstackable selectable sortable striped table">
+                            <div class="active item">۱</div>
 
-            <thead>
-            <tr>
-                <th>انتخاب</th>
-                <th>نوع درخواست</th>
-                <th>تاریخ ایجاد</th>
-                <th>نام متقاضی</th>
-                <th>مشاهده</th>
-                <th>وضعیت</th>
-            </tr>
-            </thead>
+                            <a class="item">۲</a>
 
-            <tbody>
-            {% for deletedApp in deletedApps %}
-            <tr>
-                <td style="text-align: center"><input type="checkbox" name="del_rest_inputs" value="{{ deletedApp.id }}"> </td>
-                <td>{{ deletedApp.facility.title }}</td>
-                <td>{{ deletedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
-                <td>{{ deletedApp.application.user.user.first_name }}</td>
-                <td>   <button class="ui blue button">مشاهده اطلاعات درخواست</button> </td>
-                <td>
-                    <div class="ui selection dropdown">
-  <input type="hidden" name="rev-status">
-  <i class="dropdown icon"></i>
-  <div class="default text">بررسی نشده</div>
-  <div class="menu">
-    <div class="item" data-value="0">در حال بررسی</div>
-      <div class="item" data-value="1">عقد قرارداد</div>
-    <div class="item" data-value="0">در حال همکاری</div>
-      <div class="item" data-value="1">اتمام همکاری </div>
-    <div class="item" data-value="0"> رد شده </div>
+                            <div class="item">...</div>
 
-  </div>
-</div>
-                </td>
-            </tr>
-{% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="10">
-                    <div class="ui right floated pagination menu">
+                            <a class="item">۵</a>
 
-                        <div class="icon item">
-                            <i class="left chevron icon"></i>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+
                         </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
 
-                        <div class="active item">۱</div>
-
-                        <a class="item">۲</a>
-
-                        <div class="item">...</div>
-
-                        <a class="item">۵</a>
-
-                        <a class="icon item">
-                            <i class="right chevron icon"></i>
-                        </a>
-
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
-
-</form>
-</div>
+        </form>
+    </div>
 
 
-<script>
-    function change(){
-        var temp = document.getElementsByClassName('which-button')
-        for (var i =0;i<temp.length;i++)
-            temp[i].value='1'
-    }
-</script>
+    <script>
+        function change() {
+            var temp = document.getElementsByClassName('which-button')
+            for (var i = 0; i < temp.length; i++)
+                temp[i].value = '1'
+        }
+
+        function showDetails() {
+            var url = window.location.href;
+            {#            if (url.indexOf('?') > -1) {#}
+            {#                url += '&param=1'#}
+            {#            } else {#}
+            {#                url += '?param=1'#}
+            {#            }#}
+            url += "details";
+            window.location.href = url;
+        }
+    </script>
 
 {% endblock %}
