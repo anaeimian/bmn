@@ -47,6 +47,8 @@ def delete_request(request):
     if request.method == "POST":
         temp = request.POST.getlist('which-button')
         print(temp)
+        if temp == []:
+            temp =['0']
         for value in temp:
             if value == '1':
                 list_of_changes= request.POST.getlist('status')
