@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
@@ -99,5 +100,6 @@ def delete_request(request):
     return HttpResponseRedirect('/association/requests/')
 
 
-def details(request):
-    return render(request, 'association/association-dashboard-request-detail.html', {})
+def details(request, app_id):
+    app = CoopApplication.objects.get(id=app_id)
+    return render(request, 'association/association-dashboard-request-detail.html', {'app': app})

@@ -41,7 +41,7 @@
                         <td>{{ app.application.user.user.first_name }}
                             &nbsp; {{ app.application.user.user.last_name }}</td>
                         <td>
-                            <button class="ui blue button" onclick="showDetails()">مشاهده اطلاعات درخواست</button>
+                            <button class="ui blue button" onclick="showDetails({{ app.id }})">مشاهده اطلاعات درخواست</button>
                         </td>
                         <td>
                             <div class="ui selection dropdown">
@@ -289,7 +289,7 @@
                         <td>{{ deletedApp.application.finalization_date }}۱۳۹۴/۰۴/۱۰</td>
                         <td>{{ deletedApp.application.user.user.first_name }}</td>
                         <td>
-                            <button type="button" class="ui blue button" onclick="showDetails()">مشاهده اطلاعات
+                            <button type="button" class="ui blue button" onclick="showDetails({{ deletedApp.id }})">مشاهده اطلاعات
                                 درخواست
                             </button>
                         </td>
@@ -350,14 +350,14 @@
                 temp[i].value = '1'
         }
 
-        function showDetails() {
+        function showDetails(value) {
             var url = window.location.href;
             {#            if (url.indexOf('?') > -1) {#}
             {#                url += '&param=1'#}
             {#            } else {#}
             {#                url += '?param=1'#}
             {#            }#}
-            url += "details";
+            url += "details/"+value;
             window.location.href = url;
         }
     </script>
