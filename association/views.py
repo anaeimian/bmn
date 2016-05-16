@@ -4,8 +4,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
 from application.models import CoopApplication
 from django.http import HttpResponseRedirect
-from django.template.defaulttags import register
-
+from association.forms import FilterRequestsForm
 
 # Create your views here.
 def home(request):
@@ -37,12 +36,14 @@ def requests(request):
     apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted = True)
     receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(status=7).exclude(status=8).exclude(is_deleted = True)
     reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(status=4).exclude(is_deleted=True)
-    deletedRequest = CoopApplication.objects.all().filter(is_deleted = True)
+    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
+    form = FilterRequestsForm()
     return render(request, 'association/association-dashboard-requests.html', {
         'apps': apps,
         'receivedApps' : receivedRequests,
         'reviewedApps' : reviewedRequests,
-        'deletedApps' : deletedRequest
+        'deletedApps' : deletedRequest,
+        'form':form
     })
 def delete_request(request):
     if request.method == "POST":
