@@ -9,21 +9,21 @@
             <div class="three fields">
                 <div class="field">
                     <label>
-                        نام
+نام                         درخواست دهنده
                     </label>
-                    {{ app.first_name }}
+                    {{ app.application.user.user.first_name }}{{ app.last_name }}
                 </div>
                 <div class="field">
                     <label>
-                        نام خانوادگی
+                    نام خانوادگی درخواست دهنده
                     </label>
-                    {{ form.last_name }}
+                    {{ app.application.user.user.last_name }}
                 </div>
                 <div class="field">
                     <label>
                         حوزه تخصصی
                     </label>
-                    {{ form.field }}
+                    {{ app.field }}
                 </div>
             </div>
             <div class="ui three fields">
@@ -31,7 +31,7 @@
                     <label>
                         تسهیلات
                     </label>
-                    {{ form.facility }}
+                    {{ app.facility }}
                 </div>
                 <div class="field">
                     <label>
@@ -43,7 +43,7 @@
                     <label>
                         وضعیت
                     </label>
-                    {{ form.status }}
+                    {{ app.status }}
                 </div>
             </div>
             <div class="two fields">
@@ -74,9 +74,9 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="ui primary button" value="
-            نمایش نتایج
-            ">
+{#            <input type="submit" class="ui primary button" value="#}
+{#            نمایش نتایج#}
+{#            ">#}
         </form>
     </div>
 {#    <div class="ui segment">#}

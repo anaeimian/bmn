@@ -34,21 +34,16 @@ def home(request):
 
 
 def requests(request):
-    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)
-    receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
-        status=7).exclude(is_deleted=True)
-    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
-        status=4).exclude(
-        status=7).exclude(is_deleted=True)
-    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
+    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted = True)
+    receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(status=7).exclude(status=8).exclude(is_deleted = True)
+    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(status=4).exclude(is_deleted=True)
+    deletedRequest = CoopApplication.objects.all().filter(is_deleted = True)
     return render(request, 'association/association-dashboard-requests.html', {
         'apps': apps,
-        'receivedApps': receivedRequests,
-        'reviewedApps': reviewedRequests,
-        'deletedApps': deletedRequest
+        'receivedApps' : receivedRequests,
+        'reviewedApps' : reviewedRequests,
+        'deletedApps' : deletedRequest
     })
-
-
 def delete_request(request):
     if request.method == "POST":
         temp = request.POST.getlist('which-button')
@@ -57,29 +52,29 @@ def delete_request(request):
             temp =['0']
         for value in temp:
             if value == '1':
-                list_of_changes = request.POST.getlist('status')
+                list_of_changes= request.POST.getlist('status')
                 list_of_ids = request.POST.getlist('app-id')
-                counter = 0
+                counter =0
                 if list_of_changes != []:
                     for id in list_of_ids:
-                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
-                        counter += 1
+                        CoopApplication.objects.all().filter(id=id).update(status = int(list_of_changes[counter])+1)
+                        counter+=1
                 list_of_changes = request.POST.getlist('rec-status')
                 list_of_ids = request.POST.getlist('rec-app-id')
                 counter1 = 0
                 if list_of_changes != []:
                     print('true')
                     for id in list_of_ids:
-                        print(int(list_of_changes[counter]) + 1)
-                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
-                        counter += 1
+                        print(int(list_of_changes[counter1]) + 1)
+                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter1]) + 1)
+                        counter1 += 1
                 list_of_changes = request.POST.getlist('rev-status')
                 list_of_ids = request.POST.getlist('rev-app-id')
-                counter = 0
+                counter2 = 0
                 if list_of_changes != []:
                     for id in list_of_ids:
-                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
-                        counter += 1
+                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter2]) + 1)
+                        counter2 += 1
             else:
                 list_of_delete = request.POST.getlist('new_del_inputs')
                 for del_id in list_of_delete:
