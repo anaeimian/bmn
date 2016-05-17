@@ -154,6 +154,24 @@ def delete_request(request):
     return HttpResponseRedirect('/association/requests/')
 
 
+def paged_requests(request, page_id):
+    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[0:5]
+    receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
+        status=7).exclude(status=8).exclude(is_deleted=True)[0:5]
+    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
+        status=4).exclude(is_deleted=True)[0:5]
+    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[0:5]
+    form = FilterRequestsForm()
+    return render(request, 'association/association-dashboard-requests.html', {
+        'apps': apps,
+        'receivedApps': receivedRequests,
+        'reviewedApps': reviewedRequests,
+        'deletedApps': deletedRequest,
+        'form': form
+    })
+
+
+
 def details(request, app_id):
     app = CoopApplication.objects.get(id=app_id)
     return render(request, 'association/association-dashboard-request-detail.html', {'app': app})
