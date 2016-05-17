@@ -30,20 +30,23 @@ class FilterRequestsForm(forms.Form):
     # )
     status = forms.ChoiceField(
         choices=(
-            ('0', 'ثبت نهایی نشده'),
-            ('1', 'بررسی نشده'),
-            ('2', 'در حال بررسی'),
-            ('3', 'در حال مذاکره'),
-            ('4', 'عقد قرارداد'),
-            ('5', 'شروع همکاری'),
-            ('6', 'قطع همکاری'),
-            ('7', 'اتمام همکاری'),
-            ('8', 'رد شده'),
+            ('0', '--------'),
+            ('1', 'ثبت نهایی نشده'),
+            ('2', 'بررسی نشده'),
+            ('3', 'در حال بررسی'),
+            ('4', 'در حال مذاکره'),
+            ('5', 'عقد قرارداد'),
+            ('6', 'شروع همکاری'),
+            ('7', 'قطع همکاری'),
+            ('8', 'اتمام همکاری'),
+            ('9', 'رد شده')
+
         ),
         required=False
     )
     start_date = forms.CharField(
         max_length=10,
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'id': 'start_date',
@@ -55,6 +58,7 @@ class FilterRequestsForm(forms.Form):
     )
     end_date = forms.CharField(
         max_length=10,
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'id': 'end_date',

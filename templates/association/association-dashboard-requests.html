@@ -13,7 +13,8 @@
             فیلتر کردن درخواست‌ها
         </h3>
 
-        <form class="ui form">
+        <form method="post" class="ui form">
+            {% csrf_token %}
             <div class="three fields">
                 <div class="field">
                     <label>
@@ -54,7 +55,7 @@
                     {{ form.status }}
                 </div>
             </div>
-            <div class="two fields">
+            <div class="three fields">
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
@@ -85,6 +86,7 @@
             <input type="submit" class="ui primary button" value="
             نمایش نتایج
             ">
+            <input type="button" class="ui primary button" onclick="window.location.href=window.location.href+'all'" value="نمایش همه">
         </form>
     </div>
         <div class="ui dividing header">
@@ -154,7 +156,7 @@
                             <i class="left chevron icon"></i>
                         </div>
 
-                        <div class="active item">۱</div>
+                        <div class="active item" onclick="window.location.href=window.location.href+'1'">۱</div>
 
                         <a class="item">۲</a>
 

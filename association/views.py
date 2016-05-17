@@ -1,10 +1,10 @@
-
 from django.shortcuts import render
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
 from application.models import CoopApplication
 from django.http import HttpResponseRedirect
 from association.forms import FilterRequestsForm
+
 
 # Create your views here.
 def home(request):
@@ -33,33 +33,91 @@ def home(request):
 
 
 def requests(request):
-    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted = True)
-    receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(status=7).exclude(status=8).exclude(is_deleted = True)
-    reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(status=4).exclude(is_deleted=True)
-    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
-    form = FilterRequestsForm()
-    return render(request, 'association/association-dashboard-requests.html', {
-        'apps': apps,
-        'receivedApps' : receivedRequests,
-        'reviewedApps' : reviewedRequests,
-        'deletedApps' : deletedRequest,
-        'form':form
-    })
+    if request.method == 'POST':
+        requests = CoopApplication.objects.all()
+        print("size",requests.__len__())
+        form = FilterRequestsForm(request.POST)
+        if form.is_valid():
+            if (form.cleaned_data['first_name'] != ""):
+                first_name = form.cleaned_data['first_name']
+                requests = requests.filter(application__user__user__first_name=first_name)
+                print("first")
+            if (form.cleaned_data['last_name'] != ""):
+                last_name = form.cleaned_data['last_name']
+                requests = requests.filter(application__user__user__last_name=last_name)
+                print("last")
+            print(requests.__len__())
+            # if(form.cleaned_data['email']!= None):
+            #     email = form.cleaned_data['email']
+            if (form.cleaned_data['field'] != None):
+                field = form.cleaned_data['field']
+                requests = requests.filter(field=field)
+                print("field")
+            if (form.cleaned_data['facility'] != None):
+                facility = form.cleaned_data['facility']
+                requests = requests.filter(facility__title=facility)
+                print("fac")
+            print(requests.__len__())
+
+            if (form.cleaned_data['status'] != None):
+                status = form.cleaned_data['status']
+                print(requests.__len__())
+                status = int(status) - 1
+                if(status != '0'):
+                    requests = requests.filter(status=status)
+                print(status)
+            if (form.cleaned_data['start_date'] != None):
+                start_date = form.cleaned_data['start_date']
+            if (form.cleaned_data['end_date'] != None):
+                end_date = form.cleaned_data['end_date']
+                # requests = CoopApplication.objects.all().filter(facility = facility)
+        print(requests.__len__())
+        apps = requests.filter(status=1).exclude(is_deleted=True)
+        print(apps.__len__())
+        receivedRequests = requests.exclude(status=1).exclude(status=5).exclude(status=6).exclude(
+            status=7).exclude(status=8).exclude(is_deleted=True)
+        reviewedRequests = requests.exclude(status=1).exclude(status=2).exclude(status=3).exclude(
+            status=4).exclude(is_deleted=True)
+        deletedRequest = requests.filter(is_deleted=True)
+        return render(request, 'association/association-dashboard-requests.html', {
+            'apps': apps,
+            'receivedApps': receivedRequests,
+            'reviewedApps': reviewedRequests,
+            'deletedApps': deletedRequest,
+            'form': form
+        })
+    else:
+        apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)
+        receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
+            status=7).exclude(status=8).exclude(is_deleted=True)
+        reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
+            status=4).exclude(is_deleted=True)
+        deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
+        form = FilterRequestsForm()
+        return render(request, 'association/association-dashboard-requests.html', {
+            'apps': apps,
+            'receivedApps': receivedRequests,
+            'reviewedApps': reviewedRequests,
+            'deletedApps': deletedRequest,
+            'form': form
+        })
+
+
 def delete_request(request):
     if request.method == "POST":
         temp = request.POST.getlist('which-button')
         print(temp)
         if temp == []:
-            temp =['0']
+            temp = ['0']
         for value in temp:
             if value == '1':
-                list_of_changes= request.POST.getlist('status')
+                list_of_changes = request.POST.getlist('status')
                 list_of_ids = request.POST.getlist('app-id')
-                counter =0
+                counter = 0
                 if list_of_changes != []:
                     for id in list_of_ids:
-                        CoopApplication.objects.all().filter(id=id).update(status = int(list_of_changes[counter])+1)
-                        counter+=1
+                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
+                        counter += 1
                 list_of_changes = request.POST.getlist('rec-status')
                 list_of_ids = request.POST.getlist('rec-app-id')
                 counter1 = 0
@@ -99,3 +157,7 @@ def delete_request(request):
 def details(request, app_id):
     app = CoopApplication.objects.get(id=app_id)
     return render(request, 'association/association-dashboard-request-detail.html', {'app': app})
+
+
+def all_requests(request):
+    return HttpResponseRedirect('/association/requests')

@@ -9,13 +9,13 @@
             <div class="three fields">
                 <div class="field">
                     <label>
-نام                         درخواست دهنده
+                        نام درخواست دهنده
                     </label>
                     {{ app.application.user.user.first_name }}{{ app.last_name }}
                 </div>
                 <div class="field">
                     <label>
-                    نام خانوادگی درخواست دهنده
+                        نام خانوادگی درخواست دهنده
                     </label>
                     {{ app.application.user.user.last_name }}
                 </div>
@@ -33,31 +33,49 @@
                     </label>
                     {{ app.facility }}
                 </div>
-                <div class="field">
-                    <label>
-                        پایگاه
-                    </label>
-                    {{ form.facility }}
-                </div>
+                {#                <div class="field">#}
+                {#                    <label>#}
+                {#                        پایگاه#}
+                {#                    </label>#}
+                {#                    {{ form.facility }}#}
+                {#                </div>#}
                 <div class="field">
                     <label>
                         وضعیت
                     </label>
-                    {{ app.status }}
+                    {% if app.status == '0' %}
+                        ثبت نهایی نشده
+                    {% elif app.status == '1' %}
+                        بررسی نشده
+                    {% elif app.status == '2' %}
+                        در حال بررسی
+                    {% elif app.status == '3' %}
+                        در حال مذاکره
+                    {% elif app.status == '4' %}
+                        عقد قرارداد
+                    {% elif app.status == '5' %}
+                        شروع همکاری
+                    {% elif app.status == '6' %}
+                        قطع همکاری
+                    {% elif app.status == '7' %}
+                        اتمام همکاری
+                    {% elif app.status == '8' %}
+                        رد شده
+                    {% endif %}
                 </div>
             </div>
-            <div class="two fields">
+            <div class="three fields">
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
                             <label>
                                 از تاریخ
                             </label>
-                            {{ form.start_date }}
+                            {{ app.application.start_date }}
                         </div>
-                        <div class="field">
-                            <input class="cal btn" type="button" id="start_date_btn">
-                        </div>
+                        {#                        <div class="field">#}
+                        {#                            <input class="cal btn" type="button" id="start_date_btn">#}
+                        {#                        </div>#}
                     </div>
                 </div>
                 <div class="field">
@@ -66,107 +84,107 @@
                             <label>
                                 تا تاریخ
                             </label>
-                            {{ form.end_date }}
+                            {{ app.application.end_date }}
                         </div>
-                        <div class="field">
-                            <input class="cal btn" type="button" id="end_date_btn">
-                        </div>
+                        {#                        <div class="field">#}
+                        {#                            <input class="cal btn" type="button" id="end_date_btn">#}
+                        {#                        </div>#}
                     </div>
                 </div>
             </div>
-{#            <input type="submit" class="ui primary button" value="#}
-{#            نمایش نتایج#}
-{#            ">#}
+            {#            <input type="submit" class="ui primary button" value="#}
+            {#            نمایش نتایج#}
+            {#            ">#}
         </form>
     </div>
-{#    <div class="ui segment">#}
-{#        <form class="ui dividing header">#}
-{#            لیست درخواست‌های#}
-{#            &nbsp;&nbsp;&nbsp;#}
-{#            <div class="ui selection dropdown">#}
-{#                <input type="hidden" name="query">#}
-{#                <i class="dropdown icon"></i>#}
-{##}
-{#                <div class="default text">#}
-{#                    جدید#}
-{#                </div>#}
-{##}
-{#                <div class="menu">#}
-{##}
-{#                    <div class="selected item" data-value="1">#}
-{#                        جدید#}
-{#                    </div>#}
-{#                    <div class="item" data-value="0">#}
-{#                        تایید اولیه شده#}
-{#                    </div>#}
-{#                    <div class="item" data-value="0">#}
-{#                        تایید اولیه نشده#}
-{#                    </div>#}
-{#                    <div class="item" data-value="0">#}
-{#                        رد شده#}
-{#                    </div>#}
-{#                    <div class="item" data-value="0">#}
-{#                        حذف شده#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            &nbsp;&nbsp;&nbsp;#}
-{#            <button type="submit" class="ui huge primary button">#}
-{#                نمایش نتایج#}
-{#            </button>#}
-{#        </form>#}
-{##}
-{#        <table class="ui unstackable selectable sortable striped table">#}
-{#            <thead>#}
-{#            <tr>#}
-{#                <th>نوع درخواست</th>#}
-{#                <th>تاریخ ایجاد</th>#}
-{#                <th>نام متقاضی</th>#}
-{#                <th>پایگاه(ها)</th>#}
-{#                <th>تصمیم‌گیری</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{##}
-{#            <tbody>#}
-{#            <tr>#}
-{#                <td> تسهیلات نظام وظیفه</td>#}
-{#                <td>۱۳۹۴/۰۴/۱۰</td>#}
-{#                <td>اصغر اکبری</td>#}
-{#                <td>----</td>#}
-{#                <td>#}
-{#                    <a target="_blank" class="ui yellow button">مشاهده اطلاعات درخواست</a>#}
-{#                </td>#}
-{#            </tr>#}
-{##}
-{#            </tbody>#}
-{#            <tfoot>#}
-{#            <tr>#}
-{#                <th colspan="5">#}
-{#                    <div class="ui right floated pagination menu">#}
-{##}
-{#                        <div class="icon item">#}
-{#                            <i class="left chevron icon"></i>#}
-{#                        </div>#}
-{##}
-{#                        <div class="active item">۱</div>#}
-{##}
-{#                        <a class="item">۲</a>#}
-{##}
-{#                        <div class="item">...</div>#}
-{##}
-{#                        <a class="item">۵</a>#}
-{##}
-{#                        <a class="icon item">#}
-{#                            <i class="right chevron icon"></i>#}
-{#                        </a>#}
-{##}
-{#                    </div>#}
-{#                </th>#}
-{#            </tr>#}
-{#            </tfoot>#}
-{#        </table>#}
-{##}
-{#    </div>#}
+    {#    <div class="ui segment">#}
+    {#        <form class="ui dividing header">#}
+    {#            لیست درخواست‌های#}
+    {#            &nbsp;&nbsp;&nbsp;#}
+    {#            <div class="ui selection dropdown">#}
+    {#                <input type="hidden" name="query">#}
+    {#                <i class="dropdown icon"></i>#}
+    {##}
+    {#                <div class="default text">#}
+    {#                    جدید#}
+    {#                </div>#}
+    {##}
+    {#                <div class="menu">#}
+    {##}
+    {#                    <div class="selected item" data-value="1">#}
+    {#                        جدید#}
+    {#                    </div>#}
+    {#                    <div class="item" data-value="0">#}
+    {#                        تایید اولیه شده#}
+    {#                    </div>#}
+    {#                    <div class="item" data-value="0">#}
+    {#                        تایید اولیه نشده#}
+    {#                    </div>#}
+    {#                    <div class="item" data-value="0">#}
+    {#                        رد شده#}
+    {#                    </div>#}
+    {#                    <div class="item" data-value="0">#}
+    {#                        حذف شده#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            &nbsp;&nbsp;&nbsp;#}
+    {#            <button type="submit" class="ui huge primary button">#}
+    {#                نمایش نتایج#}
+    {#            </button>#}
+    {#        </form>#}
+    {##}
+    {#        <table class="ui unstackable selectable sortable striped table">#}
+    {#            <thead>#}
+    {#            <tr>#}
+    {#                <th>نوع درخواست</th>#}
+    {#                <th>تاریخ ایجاد</th>#}
+    {#                <th>نام متقاضی</th>#}
+    {#                <th>پایگاه(ها)</th>#}
+    {#                <th>تصمیم‌گیری</th>#}
+    {#            </tr>#}
+    {#            </thead>#}
+    {##}
+    {#            <tbody>#}
+    {#            <tr>#}
+    {#                <td> تسهیلات نظام وظیفه</td>#}
+    {#                <td>۱۳۹۴/۰۴/۱۰</td>#}
+    {#                <td>اصغر اکبری</td>#}
+    {#                <td>----</td>#}
+    {#                <td>#}
+    {#                    <a target="_blank" class="ui yellow button">مشاهده اطلاعات درخواست</a>#}
+    {#                </td>#}
+    {#            </tr>#}
+    {##}
+    {#            </tbody>#}
+    {#            <tfoot>#}
+    {#            <tr>#}
+    {#                <th colspan="5">#}
+    {#                    <div class="ui right floated pagination menu">#}
+    {##}
+    {#                        <div class="icon item">#}
+    {#                            <i class="left chevron icon"></i>#}
+    {#                        </div>#}
+    {##}
+    {#                        <div class="active item">۱</div>#}
+    {##}
+    {#                        <a class="item">۲</a>#}
+    {##}
+    {#                        <div class="item">...</div>#}
+    {##}
+    {#                        <a class="item">۵</a>#}
+    {##}
+    {#                        <a class="icon item">#}
+    {#                            <i class="right chevron icon"></i>#}
+    {#                        </a>#}
+    {##}
+    {#                    </div>#}
+    {#                </th>#}
+    {#            </tr>#}
+    {#            </tfoot>#}
+    {#        </table>#}
+    {##}
+    {#    </div>#}
 
 {% endblock %}
 
