@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from application.models import CoopApplication
 from django.http import HttpResponseRedirect
 from association.forms import FilterRequestsForm
+import math
 
 
 # Create your views here.
@@ -35,7 +36,7 @@ def home(request):
 def requests(request):
     if request.method == 'POST':
         requests = CoopApplication.objects.all()
-        print("size",requests.__len__())
+        print("size", requests.__len__())
         form = FilterRequestsForm(request.POST)
         if form.is_valid():
             if (form.cleaned_data['first_name'] != ""):
@@ -63,9 +64,11 @@ def requests(request):
                 status = form.cleaned_data['status']
                 print(requests.__len__())
                 status = int(status) - 1
-                if(status != '0'):
+                if (status != -1):
                     requests = requests.filter(status=status)
+                    print("stat")
                 print(status)
+                print(requests.__len__())
             if (form.cleaned_data['start_date'] != None):
                 start_date = form.cleaned_data['start_date']
             if (form.cleaned_data['end_date'] != None):
@@ -87,19 +90,22 @@ def requests(request):
             'form': form
         })
     else:
-        apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)
+        apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[0:5]
         receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
-            status=7).exclude(status=8).exclude(is_deleted=True)
+            status=7).exclude(status=8).exclude(is_deleted=True)[0:5]
         reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
-            status=4).exclude(is_deleted=True)
-        deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)
+            status=4).exclude(is_deleted=True)[0:5]
+        deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[0:5]
         form = FilterRequestsForm()
+        appsPagesNumber = math.ceil(CoopApplication.objects.all().__len__() / 5)
         return render(request, 'association/association-dashboard-requests.html', {
             'apps': apps,
             'receivedApps': receivedRequests,
             'reviewedApps': reviewedRequests,
             'deletedApps': deletedRequest,
-            'form': form
+            'form': form,
+            'appsPagesNumberRange': range(1, appsPagesNumber + 1),
+            'appsPagesNumber': appsPagesNumber
         })
 
 
@@ -155,21 +161,23 @@ def delete_request(request):
 
 
 def paged_requests(request, page_id):
-    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[0:5]
+    apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[
+           int(page_id) * 5 - 5:int(page_id) * 5]
     receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
-        status=7).exclude(status=8).exclude(is_deleted=True)[0:5]
+        status=7).exclude(status=8).exclude(is_deleted=True)[int(page_id) * 5 - 5:int(page_id) * 5]
     reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
-        status=4).exclude(is_deleted=True)[0:5]
-    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[0:5]
+        status=4).exclude(is_deleted=True)[int(page_id) * 5 - 5:int(page_id) * 5]
+    deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[int(page_id) * 5 - 5:int(page_id) * 5]
     form = FilterRequestsForm()
+    appsPagesNumber = math.ceil(CoopApplication.objects.all().__len__() / 5)
     return render(request, 'association/association-dashboard-requests.html', {
         'apps': apps,
         'receivedApps': receivedRequests,
         'reviewedApps': reviewedRequests,
         'deletedApps': deletedRequest,
-        'form': form
+        'form': form,
+        'appsPagesNumber': range(1, appsPagesNumber + 1)
     })
-
 
 
 def details(request, app_id):
