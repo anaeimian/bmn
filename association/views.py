@@ -73,10 +73,8 @@ def requests(request):
                 start_date = form.cleaned_data['start_date']
             if (form.cleaned_data['end_date'] != None):
                 end_date = form.cleaned_data['end_date']
-                # requests = CoopApplication.objects.all().filter(facility = facility)
-        print(requests.__len__())
+                requests = CoopApplication.objects.all().filter(facility = facility)
         apps = requests.filter(status=1).exclude(is_deleted=True)
-        print(apps.__len__())
         receivedRequests = requests.exclude(status=1).exclude(status=5).exclude(status=6).exclude(
             status=7).exclude(status=8).exclude(is_deleted=True)
         reviewedRequests = requests.exclude(status=1).exclude(status=2).exclude(status=3).exclude(
@@ -89,24 +87,26 @@ def requests(request):
             'deletedApps': deletedRequest,
             'form': form
         })
+
     else:
-        apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[0:5]
-        receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
-            status=7).exclude(status=8).exclude(is_deleted=True)[0:5]
-        reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
-            status=4).exclude(is_deleted=True)[0:5]
-        deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[0:5]
-        form = FilterRequestsForm()
-        appsPagesNumber = math.ceil(CoopApplication.objects.all().__len__() / 5)
-        return render(request, 'association/association-dashboard-requests.html', {
-            'apps': apps,
-            'receivedApps': receivedRequests,
-            'reviewedApps': reviewedRequests,
-            'deletedApps': deletedRequest,
-            'form': form,
-            'appsPagesNumberRange': range(1, appsPagesNumber + 1),
-            'appsPagesNumber': appsPagesNumber
-        })
+        # apps = CoopApplication.objects.all().filter(status=1).exclude(is_deleted=True)[0:5]
+        # receivedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=5).exclude(status=6).exclude(
+        #     status=7).exclude(status=8).exclude(is_deleted=True)[0:5]
+        # reviewedRequests = CoopApplication.objects.all().exclude(status=1).exclude(status=2).exclude(status=3).exclude(
+        #     status=4).exclude(is_deleted=True)[0:5]
+        # deletedRequest = CoopApplication.objects.all().filter(is_deleted=True)[0:5]
+        # form = FilterRequestsForm()
+        # appsPagesNumber = math.ceil(CoopApplication.objects.all().__len__() / 5)
+        # return render(request, 'association/association-dashboard-requests.html', {
+        #     'apps': apps,
+        #     'receivedApps': receivedRequests,
+        #     'reviewedApps': reviewedRequests,
+        #     'deletedApps': deletedRequest,
+        #     'form': form,
+        #     'appsPagesNumberRange': range(1, appsPagesNumber + 1),
+        #     'appsPagesNumber': appsPagesNumber
+        # })
+        return HttpResponseRedirect('/association/requests/1')
 
 
 def delete_request(request):
@@ -176,7 +176,8 @@ def paged_requests(request, page_id):
         'reviewedApps': reviewedRequests,
         'deletedApps': deletedRequest,
         'form': form,
-        'appsPagesNumber': range(1, appsPagesNumber + 1)
+        'appsPagesNumber': appsPagesNumber,
+        'appsPagesNumberRange': range(1, appsPagesNumber + 1)
     })
 
 
