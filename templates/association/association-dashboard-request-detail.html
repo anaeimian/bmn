@@ -91,6 +91,34 @@
                         {#                        </div>#}
                     </div>
                 </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                تا تاریخ
+                            </label>
+                            {% for text in texts %}
+                                {{ text.text }}{{ text.title }}
+                            {% endfor %}
+                        </div>
+                        {#                        <div class="field">#}
+                        {#                            <input class="cal btn" type="button" id="end_date_btn">#}
+                        {#                        </div>#}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                تا تاریخ
+                            </label>
+                            {{ app.application.end_date }}
+                        </div>
+                        {#                        <div class="field">#}
+                        {#                            <input class="cal btn" type="button" id="end_date_btn">#}
+                        {#                        </div>#}
+                    </div>
+                </div>
             </div>
             {#            <input type="submit" class="ui primary button" value="#}
             {#            نمایش نتایج#}

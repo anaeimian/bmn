@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render, get_object_or_404
-from application.models import CoopApplication
+from application.models import CoopApplication, TextExtraAttachment, FileExtraAttachment
 from django.http import HttpResponseRedirect
 from association.forms import FilterRequestsForm
 import math
@@ -254,7 +254,9 @@ def paged_requests(request, page_id):
 
 def details(request, app_id):
     app = CoopApplication.objects.get(id=app_id)
-    return render(request, 'association/association-dashboard-request-detail.html', {'app': app})
+    textAttachs = TextExtraAttachment.objects.all().filter(application__id = app_id)
+    fileAttachs = FileExtraAttachment.objects.all().filter(application__id = app_id)
+    return render(request, 'association/association-dashboard-request-detail.html', {'app': app, 'texts': textAttachs, 'files': fileAttachs})
 
 
 def all_requests(request):
