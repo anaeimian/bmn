@@ -167,11 +167,21 @@
                             <a id="leftChevron" onclick="decreasePage()" class="icon item">
                                 <i class="left chevron icon"></i>
                             </a>
+{#                            {% if appsPagesNumberRange.start != 1 %}#}
+{#                               <a class="item" id="btn1" onclick="changePage(1,{{ appsPagesNumber }})">1</a>#}
+{#                            {% endif %}#}
+                            {% if appsPagesNumberRange.start != 1 %}
+                                <div class="item">...</div>
+                            {% endif %}
                             {% for i in appsPagesNumberRange %}
                                 <a class="item" id="btn{{ i }}" onclick="changePage({{ i }},{{ appsPagesNumber }})">{{ i }}</a>
                             {% endfor %}
 {#                            <a class="item" href="/association/requests/2">۲</a>#}
-{##}
+{##}                        {% if appsPagesNumberRange.stop  <= appsPagesNumber %}
+                                <div class="item">...</div>
+                                <a class="item" id="btn{{ appsPagesNumber }}" onclick="changePage({{ appsPagesNumber }},{{ appsPagesNumber }})">{{ appsPagesNumber }}</a>
+                            {% endif %}
+
 {#                            <div class="item">...</div>#}
 {##}
 {#                            <a class="item">۵</a>#}
