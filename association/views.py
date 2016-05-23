@@ -120,9 +120,13 @@ def delete_request(request):
             if value == '1':
                 list_of_changes = request.POST.getlist('status')
                 list_of_ids = request.POST.getlist('app-id')
+                print(" list of changes",list_of_changes)
+                print("list of id",list_of_ids)
                 counter = 0
                 if list_of_changes != []:
                     for id in list_of_ids:
+                        print(id)
+                        print(list_of_changes)
                         CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter]) + 1)
                         counter += 1
                 list_of_changes = request.POST.getlist('rec-status')
@@ -139,7 +143,12 @@ def delete_request(request):
                 counter2 = 0
                 if list_of_changes != []:
                     for id in list_of_ids:
-                        CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter2]) + 1)
+                        print("change: " + list_of_changes[counter2])
+                        if int(list_of_changes[counter2])>= 3:
+                            CoopApplication.objects.all().filter(id=id).update(status=int(list_of_changes[counter2]) + 1)
+                        elif (int(list_of_changes[counter2])==2 or int(list_of_changes[counter2])==1):
+                            CoopApplication.objects.all().filter(id=id).update(
+                                status=int(list_of_changes[counter2]) + 2)
                         counter2 += 1
             else:
                 list_of_delete = request.POST.getlist('new_del_inputs')

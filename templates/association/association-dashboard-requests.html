@@ -246,9 +246,10 @@
                                     <div class="item" data-value="1">در حال بررسی</div>
                                     <div class="item" data-value="2">در حال مذاکره</div>
                                     <div class="item" data-value="3">عقد قرارداد</div>
-                                    <div class="item" data-value="4">در حال همکاری</div>
-                                    <div class="item" data-value="5">اتمام همکاری</div>
-                                    <div class="item" data-value="6"> رد شده</div>
+                                    <div class="item" data-value="4">شروع همکاری</div>
+                                    <div class="item" data-value="5">قطع همکاری</div>
+                                    <div class="item" data-value="6">اتمام همکاری</div>
+                                    <div class="item" data-value="7"> رد شده</div>
 
                                 </div>
                             </div>
@@ -318,7 +319,7 @@
                         </td>
                         <td>
                             <div class="ui selection dropdown">
-                                <input type="hidden" name="rev-status" value="{{ reviewedApp.status|add:-1 }}">
+                                <input type="hidden" name="rev-status" value="{{ reviewedApp.status|add:-2 }}">
                                 <i class="dropdown icon"></i>
 
                                 <div class="default text"></div>
@@ -326,9 +327,10 @@
                                     <div class="item" data-value="0">در حال بررسی</div>
                                     <div class="item" data-value="1">در حال مذاکره</div>
                                     <div class="item" data-value="2">عقد قرارداد</div>
-                                    <div class="item" data-value="3">در حال همکاری</div>
-                                    <div class="item" data-value="4">اتمام همکاری</div>
-                                    <div class="item" data-value="5"> رد شده</div>
+                                    <div class="item" data-value="3">شروع همکاری</div>
+                                    <div class="item" data-value="4">قطع همکاری</div>
+                                    <div class="item" data-value="5">اتمام همکاری</div>
+                                    <div class="item" data-value="6"> رد شده</div>
 
                                 </div>
                             </div>
