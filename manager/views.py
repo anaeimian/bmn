@@ -7,7 +7,7 @@ from django.http.response import HttpResponseRedirect
 from association.models import Facility, Association
 from manager.forms import NoticeForm, NewsForm, FacilityForm, FieldForm, AssociationForm, FilterRequestsForm
 from application.models import CoopApplication
-
+from messaging.models import Message
 from users.models import Field, BMNUser
 from manager.models import Question, News, Notice
 
@@ -74,7 +74,7 @@ def logout_user(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def messages(request):
-    return render(request, 'manager/manager-dashboard-messages.html', {
+    return render(request, 'manager/manager-dashboard-messages-lists.html', {
         'new_messages': 0
     })
 
@@ -594,3 +594,22 @@ def gdate_to_str(date_obj):
 
 def get_association(request):
     pass
+
+def compose_message(request):
+    return render( request, 'manager/manager-dashboard-message-new.html')
+
+def compose_message_submit(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        receiver = request.POST.get("receiver")
+        content = request.POST.get("content")
+        message = Message()
+        message.title=title
+        user = User.objects.all().filter(username=receiver)[0]
+        message.reciever=user
+        message.text=content
+        message.sender=request.user
+        message.save()
+
+
+    return HttpResponseRedirect("/manager/messages/")

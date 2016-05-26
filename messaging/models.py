@@ -11,7 +11,10 @@ class Message(models.Model):
         null=True,
         blank=True,
     )
-
+    title = models.CharField(
+        _('Message Title'),
+        max_length=200,
+    )
     sender = models.ForeignKey(
         User,
         verbose_name=_('Message Sender'),
@@ -41,3 +44,6 @@ class Message(models.Model):
     is_read = models.BooleanField(
         default=False,
     )
+
+    def __str__(self):
+        return self.title

@@ -2,6 +2,8 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
+    url(r'messages/ComposeMessage/$', 'manager.views.compose_message'),
+    url(r'messages/ComposeMessage/ComposeMessageSubmit/$', 'manager.views.compose_message_submit'),
     url(r'messages/$', 'manager.views.messages'),
     url(r'requests/$', 'manager.views.requests'),
 

@@ -1,13 +1,14 @@
 {% extends 'manager/manager-base.html' %}
 {% load staticfiles %}
 {% block segment %}
-    <form class="ui form">
+    <form class="ui form" method="post"  action="ComposeMessageSubmit/">
+    {% csrf_token %}
   <h4 class="ui dividing header">Shipping Information</h4>
   <div class="field">
     <label>Title</label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="shipping[address]" placeholder="Title">
+        <input type="text" name="title" placeholder="Title">
       </div>
     </div>
   </div>
@@ -15,14 +16,14 @@
     <label>Receiver</label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="shipping[address]" placeholder="Receiver">
+        <input type="text" name="receiver" placeholder="Receiver">
       </div>
     </div>
   </div>
     <div class="field">
     <label>Text</label>
-    <textarea></textarea><grammarly-btn><div style="z-index: 2; opacity: 1; transform: translate(809px, 160px);" class="_9b5ef6-textarea_btn _9b5ef6-not_focused" data-grammarly-reactid=".0"><div class="_9b5ef6-transform_wrap" data-grammarly-reactid=".0.0"><div title="Protected by Grammarly" class="_9b5ef6-status" data-grammarly-reactid=".0.0.0">&nbsp;</div></div></div></grammarly-btn>
+    <textarea name="content"></textarea>
   </div>
-    <button class="ui blue button">Submit</button>
+    <button type="submit" class="ui blue button">Submit</button>
     </form>
 {% endblock %}
