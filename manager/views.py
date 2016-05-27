@@ -7,7 +7,7 @@ from django.http.response import HttpResponseRedirect
 from association.models import Facility, Association
 from manager.forms import NoticeForm, NewsForm, FacilityForm, FieldForm, AssociationForm, FilterRequestsForm
 from application.models import CoopApplication
-from messaging.models import Message
+from messaging.models import Message, Conversation
 from users.models import Field, BMNUser
 from manager.models import Question, News, Notice
 
@@ -603,12 +603,17 @@ def compose_message_submit(request):
         title = request.POST.get("title")
         receiver = request.POST.get("receiver")
         content = request.POST.get("content")
+        conversation = Conversation()
         message = Message()
-        message.title=title
+        conversation.title=title
         user = User.objects.all().filter(username=receiver)[0]
+        conversation.receiver=user
+        conversation.sender=request.user
         message.reciever=user
         message.text=content
         message.sender=request.user
+        conversation.save()
+        message.conversation= conversation
         message.save()
 
 
