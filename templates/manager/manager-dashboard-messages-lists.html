@@ -10,55 +10,25 @@
             </form>
         <div class="ui comments">
             <h3 class="ui dividing header"></h3>
-
+            {% for conversation in conversations %}
             <div class="comment">
                 <a class="avatar">
                     <img src="{% static 'images/avatar/small/matt.jpg' %}">
                 </a>
 
                 <div class="content">
-                    <a class="author">علی حسینی</a>
+                    <a class="author">{{ conversation.title }}</a>
 
                     <div class="metadata">
                         <span class="date">امروز در ساعت ۰۹:۱۴</span>
                     </div>
                     <div class="text">
-                        درخواست شما ناقص است.
+                 {{ conversation.sender.first_name }} {{ conversation.sender.last_name }}
                     </div>
                 </div>
             </div>
-            <div class="comment">
-                <a class="avatar">
-                    <img src="{% static 'images/avatar/small/matt.jpg' %}">
-                </a>
+            {% endfor %}
 
-                <div class="content">
-                    <a class="author">اکبر اکبری</a>
-
-                    <div class="metadata">
-                        <span class="date">امروز در ساعت ۱۰:۰۳</span>
-                    </div>
-                    <div class="text">
-                        <p>درخواست خودتان ناقص است. با تشکر!!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment">
-                <a class="avatar">
-                    <img src="{% static 'images/avatar/small/matt.jpg' %}">
-                </a>
-
-                <div class="content">
-                    <a class="author">Joe Henderson</a>
-
-                    <div class="metadata">
-                        <span class="date">5 days ago</span>
-                    </div>
-                    <div class="text">
-                        Dude, this is awesome. Thanks so much
-                    </div>
-                </div>
-            </div>
 
         </div>
 
