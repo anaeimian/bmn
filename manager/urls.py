@@ -40,4 +40,6 @@ urlpatterns = [
 
     url(r'logout/$', 'manager.views.logout_user'),
     url(r'$', 'manager.views.home'),
+
+    url(r'search/$', 'manager.views.ajax_search'),
 ]

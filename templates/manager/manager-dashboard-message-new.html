@@ -16,7 +16,7 @@
     <label>Receiver</label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="receiver" placeholder="Receiver">
+        <input type="text" id="receiver" name="receiver" placeholder="Receiver">
       </div>
     </div>
   </div>
@@ -26,4 +26,7 @@
   </div>
     <button type="submit" class="ui blue button">Submit</button>
     </form>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/ajax_user_search.js' %}"></script>
 {% endblock %}
