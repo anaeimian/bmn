@@ -10,6 +10,7 @@ from application.models import CoopApplication
 from messaging.models import Message, Conversation
 from users.models import Field, BMNUser
 from manager.models import Question, News, Notice
+import json
 
 
 def is_manager(user):
@@ -618,5 +619,22 @@ def compose_message_submit(request):
         message.conversation= conversation
         message.save()
 
-
     return HttpResponseRedirect("/manager/messages/")
+
+
+# def ajax_search(request):
+#     if request.is_ajax():
+#         users = User.objects.filter(title__contains=request.GET.get('term', ''))
+#
+#         results = []
+#         for user in users:
+#             event_json = {}
+#             event_json['id'] = user
+#             event_json['label'] = event.title
+#             event_json['value'] = event.title
+#             results.append(event_json)
+#         data = json.dumps(results)
+#     else:
+#         data = 'fail'
+#     mimetype = 'application/json'
+#     return HttpResponse(data, mimetype)
