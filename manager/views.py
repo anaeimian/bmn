@@ -611,15 +611,15 @@ def compose_message_submit(request):
         content = request.POST.get("content")
         conversation = Conversation()
         message = Message()
-        conversation.title=title
+        conversation.title = title
         user = User.objects.all().filter(username=receiver)[0]
-        conversation.receiver=user
-        conversation.sender=request.user
-        message.reciever=user
-        message.text=content
-        message.sender=request.user
+        conversation.receiver = user
+        conversation.sender = request.user
+        message.reciever = user
+        message.text = content
+        message.sender = request.user
         conversation.save()
-        message.conversation= conversation
+        message.conversation = conversation
         message.save()
 
     return HttpResponseRedirect("/manager/messages/")
@@ -627,13 +627,13 @@ def compose_message_submit(request):
 
 def ajax_search(request):
     if request.is_ajax():
-        users = User.objects.filter(first_name__contains=request.GET.get('term', ''))
+        users = User.objects.filter(username__contains=request.GET.get('term', ''))
         results = []
         for user in users:
             event_json = {}
-            event_json['id'] = user.first_name
-            event_json['label'] = user.first_name
-            event_json['value'] = user.first_name
+            event_json['id'] = user.username
+            event_json['label'] = user.username
+            event_json['value'] = user.username
             results.append(event_json)
         data = json.dumps(results)
     else:
