@@ -1,30 +1,41 @@
+<style>
+.ui-menu .ui-menu-item {
+    font-size:12px;
+}
+</style>
 {% extends 'manager/manager-base.html' %}
 {% load staticfiles %}
 {% block segment %}
     <form class="ui form" method="post"  action="ComposeMessageSubmit/">
     {% csrf_token %}
-  <h4 class="ui dividing header">Shipping Information</h4>
+  <h4 class="ui dividing header">اطلاعات پیام</h4>
   <div class="field">
-    <label>Title</label>
+    <label>
+        عنوان
+    </label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="title" placeholder="عنوان">
       </div>
     </div>
   </div>
   <div class="field">
-    <label>Receiver</label>
+    <label>
+        دریافت کننده
+    </label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" id="receiver" name="receiver" placeholder="Receiver">
+        <input type="text" id="receiver" name="receiver" placeholder="دریافت کننده">
       </div>
     </div>
   </div>
     <div class="field">
-    <label>Text</label>
+    <label>
+        متن پیام
+    </label>
     <textarea name="content"></textarea>
   </div>
-    <button type="submit" class="ui blue button">Submit</button>
+    <button type="submit" class="ui blue button">ارسال</button>
     </form>
 {% endblock %}
 {% block scripts %}

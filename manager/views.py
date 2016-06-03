@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 import jdatetime
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect,HttpResponse
 from association.models import Facility, Association
 from manager.forms import NoticeForm, NewsForm, FacilityForm, FieldForm, AssociationForm, FilterRequestsForm
 from application.models import CoopApplication
@@ -11,6 +11,7 @@ from messaging.models import Message, Conversation
 from users.models import Field, BMNUser
 from manager.models import Question, News, Notice
 import json
+
 
 
 def is_manager(user):
@@ -598,8 +599,10 @@ def gdate_to_str(date_obj):
 def get_association(request):
     pass
 
+
 def compose_message(request):
     return render( request, 'manager/manager-dashboard-message-new.html')
+
 
 def compose_message_submit(request):
     if request.method == "POST":
@@ -622,19 +625,18 @@ def compose_message_submit(request):
     return HttpResponseRedirect("/manager/messages/")
 
 
-# def ajax_search(request):
-#     if request.is_ajax():
-#         users = User.objects.filter(title__contains=request.GET.get('term', ''))
-#
-#         results = []
-#         for user in users:
-#             event_json = {}
-#             event_json['id'] = user
-#             event_json['label'] = event.title
-#             event_json['value'] = event.title
-#             results.append(event_json)
-#         data = json.dumps(results)
-#     else:
-#         data = 'fail'
-#     mimetype = 'application/json'
-#     return HttpResponse(data, mimetype)
+def ajax_search(request):
+    if request.is_ajax():
+        users = User.objects.filter(first_name__contains=request.GET.get('term', ''))
+        results = []
+        for user in users:
+            event_json = {}
+            event_json['id'] = user.first_name
+            event_json['label'] = user.first_name
+            event_json['value'] = user.first_name
+            results.append(event_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.rtl.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/global.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/user-dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/jquery-ui.css' %}">
 
     {% block head_content %}
     {% endblock %}
@@ -111,8 +112,10 @@
 </div>
 
 <script src="{% static 'javascripts/library/jquery-2.1.3.min.js' %}"></script>
+<script src="{% static 'javascripts/library/jquery-ui.js' %}"></script>
 <script src="{% static 'semantic/semantic.min.js' %}"></script>
 <script src="{% static 'javascripts/dropdown.js' %}"></script>
+<script src="{% static 'javascripts/manager/ajax_user_search.js' %}"></script>
 {% block scripts %}
 {% endblock %}
 </body>
