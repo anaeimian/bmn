@@ -5,6 +5,8 @@ urlpatterns = [
     url(r'messages/ComposeMessage/$', 'manager.views.compose_message'),
     url(r'messages/ComposeMessage/ComposeMessageSubmit/$', 'manager.views.compose_message_submit'),
     url(r'messages/$', 'manager.views.messages'),
+    url(r'messages/(?P<conversation_id>\d+)/$', 'manager.views.conversation'),
+
     url(r'requests/$', 'manager.views.requests'),
 
     url(r'faqs/new/$', 'manager.views.new_faq'),

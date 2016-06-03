@@ -640,3 +640,12 @@ def ajax_search(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def conversation(request, conversation_id):
+    conversation = Conversation.objects.get(id=conversation_id)
+    messages = Message.objects.filter(conversation=conversation)
+    return render(request, 'manager/manager-dashboard-messages-detail.html', {
+        'conversation': conversation,
+        'messages': messages
+    })
