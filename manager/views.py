@@ -644,6 +644,7 @@ def ajax_search(request):
 
 def conversation(request, conversation_id):
     conversation = Conversation.objects.get(id=conversation_id)
+    Conversation.objects.all().filter(id = conversation_id).update(is_read = True)
     messages = Message.objects.filter(conversation=conversation)
     return render(request, 'manager/manager-dashboard-messages-detail.html', {
         'conversation': conversation,
