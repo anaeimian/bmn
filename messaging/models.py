@@ -17,6 +17,10 @@ class Conversation(models.Model):
         verbose_name=_('Con Message Reciever'),
         related_name='Conversation_reciever'
     )
+    lastMessageTime = models.DateTimeField(
+        verbose_name='Last Message Timestamp',
+        default=utils.timezone.now,
+    )
 
 class Message(models.Model):
     text = models.TextField(

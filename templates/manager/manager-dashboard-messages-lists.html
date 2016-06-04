@@ -1,5 +1,6 @@
 {% extends 'manager/manager-base.html' %}
 {% load staticfiles %}
+{% load filters %}
 {% block segment %}
 
            <h1 class="ui header">پیغام های شما</h1>
@@ -20,7 +21,7 @@
                     <a href="{{ conversation.id }}" class="author">{{ conversation.title }}</a>
 
                     <div class="metadata">
-                        <span class="date">امروز در ساعت ۰۹:۱۴</span>
+                        <span class="date">{{ conversation.lastMessageTime|to_jdate }} {{ conversation.lastMessageTime|date:"H:m" }}</span>
                     </div>
                     <div class="text">
                  {{ conversation.sender.first_name }} {{ conversation.sender.last_name }}
