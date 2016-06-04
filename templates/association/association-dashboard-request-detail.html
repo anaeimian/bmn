@@ -91,24 +91,13 @@
                         {#                        </div>#}
                     </div>
                 </div>
-            {% for text in texts %}
-                <div class="field">
-                    <div class="two fields">
-                        <div class="field">
-                            <label>
-                              {{ text.title }}
-                            </label>
 
-                                {{ text.text }}
 
-                        </div>
-                        {#                        <div class="field">#}
-                        {#                            <input class="cal btn" type="button" id="end_date_btn">#}
-                        {#                        </div>#}
-                    </div>
-                </div>
-            {% endfor %}
-            {% for file in files %}
+
+            </div>
+        <h2>نیازمندی های فایلی</h2>
+        <div class="ui segment">
+        {% for file in files %}
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
@@ -122,7 +111,14 @@
                     </div>
                 </div>
             {% endfor %}
-            </div>
+        </div>
+        <h2>نیازمندی های متنی</h2>
+        {% for text in texts %}
+                <div class="ui segment">
+  <h4 class="ui header">{{ text.title }}</h4>
+                <p>{{ text.text }}</p>
+</div>
+            {% endfor %}
             {#            <input type="submit" class="ui primary button" value="#}
             {#            نمایش نتایج#}
             {#            ">#}
