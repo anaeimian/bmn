@@ -1,0 +1,131 @@
+{% extends 'manager/manager-base.html' %}
+{% load staticfiles %}
+{% block segment %}
+    <div class="ui segment">
+
+
+        <div class="ui comments">
+            <h3 class="ui dividing header">{{ conversation.title }}</h3>
+
+            <div class="comment">
+
+
+                {% for message in messages %}
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="{% static 'images/avatar/small/matt.jpg' %}">
+                        </a>
+
+                        <div class="content" id="container" style="background-color: #dddddd">
+                            <a href="#" id="message-title"
+                               class="author">{{ message.sender.first_name }} {{ message.sender.last_name }}</a>
+
+                            <div style="margin-right:100px;" class="metadata">
+                                <span class="date">امروز در ساعت ۰۹:۱۴</span>
+                            </div>
+                            <div id="truncated" class="text">
+                                {{ message.text|truncatewords:8 }}
+                            </div>
+
+                        </div>
+                        <div id="fulltext" style="visibility: hidden;margin-right: 60px;" class="text">
+                            {{ message.text }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {#                <a class="avatar">#}
+                {#                    <img src="{% static 'images/avatar/small/matt.jpg' %}">#}
+                {#                </a>#}
+                {##}
+                {#                <div class="content">#}
+                {#                    <a class="author">علی حسینی</a>#}
+                {##}
+                {#                    <div class="metadata">#}
+                {#                        <span class="date">امروز در ساعت ۰۹:۱۴</span>#}
+                {#                    </div>#}
+                {#                    <div class="text">#}
+                {#                        درخواست شما ناقص است.#}
+                {#                    </div>#}
+                {#                    <div class="actions">#}
+                {#                        <a class="reply">پاسخ</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#            <div class="comment">#}
+                {#                <a class="avatar">#}
+                {#                    <img src="{% static 'images/avatar/small/matt.jpg' %}">#}
+                {#                </a>#}
+                {##}
+                {#                <div class="content">#}
+                {#                    <a class="author">اکبر اکبری</a>#}
+                {##}
+                {#                    <div class="metadata">#}
+                {#                        <span class="date">امروز در ساعت ۱۰:۰۳</span>#}
+                {#                    </div>#}
+                {#                    <div class="text">#}
+                {#                        <p>درخواست خودتان ناقص است. با تشکر!!</p>#}
+                {#                    </div>#}
+                {#                    <div class="actions">#}
+                {#                        <a class="reply">Reply</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class="comments">#}
+                {#                    <div class="comment">#}
+                {#                        <a class="avatar">#}
+                {#                            <img src="{% static 'images/avatar/small/matt.jpg' %}">#}
+                {#                        </a>#}
+                {##}
+                {#                        <div class="content">#}
+                {#                            <a class="author">Jenny Hess</a>#}
+                {##}
+                {#                            <div class="metadata">#}
+                {#                                <span class="date">Just now</span>#}
+                {#                            </div>#}
+                {#                            <div class="text">#}
+                {#                                Elliot you are always so right :)#}
+                {#                            </div>#}
+                {#                            <div class="actions">#}
+                {#                                <a class="reply">Reply</a>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+                {#            <div class="comment">#}
+                {#                <a class="avatar">#}
+                {#                    <img src="{% static 'images/avatar/small/matt.jpg' %}">#}
+                {#                </a>#}
+                {##}
+                {#                <div class="content">#}
+                {#                    <a class="author">Joe Henderson</a>#}
+                {##}
+                {#                    <div class="metadata">#}
+                {#                        <span class="date">5 days ago</span>#}
+                {#                    </div>#}
+                {#                    <div class="text">#}
+                {#                        Dude, this is awesome. Thanks so much#}
+                {#                    </div>#}
+                {#                    <div class="actions">#}
+                {#                        <a class="reply">Reply</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#            </div>#}
+                <form class="ui reply form">
+                    <h3 class="ui header" style="margin-top: 30px;">متن پاسخ</h3>
+
+                    <div class="field">
+                        <textarea></textarea>
+                    </div>
+                    <div class="ui blue labeled submit icon button">
+                        <i class="icon edit"></i> ارسال پاسخ
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'javascripts/manager/conversation.js' %}"></script>
+{% endblock %}
