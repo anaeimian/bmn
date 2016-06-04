@@ -40,13 +40,19 @@ def validate_association_data(name, username, email, password, repeat_password):
 
 
 def home(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == 'GET':
         if not request.user.is_authenticated():
             return render(request, 'manager/manager-login.html', {
-
+                'new_messages': newMessages,
             })
         else:
             return render(request, 'manager/manager-dashboard-home.html', {
+                'new_messages': newMessages,
             })
     else:
         username = request.POST['username']
@@ -55,12 +61,13 @@ def home(request):
         if (user is not None) and user.is_active and user.is_superuser:
             login(request, user)
             return render(request, 'manager/manager-dashboard-home.html', {
-
+                'new_messages': newMessages
             })
         else:
             alerts = "اطلاعات وارد شده معتبر نمی باشد."
             return render(request, 'users/login.html', {
                 'alerts': alerts,
+                'new_messages': newMessages,
             })
 
 
@@ -77,8 +84,12 @@ def logout_user(request):
 @login_required(login_url='/manager/')
 def messages(request):
     conversations = Conversation.objects.all().filter(receiver = request.user).order_by('-lastMessageTime')
+    newMessages=0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages+=1
     return render(request, 'manager/manager-dashboard-messages-lists.html', {
-        'new_messages': 0,
+        'new_messages': newMessages,
         'conversations': conversations
     })
 
@@ -86,9 +97,15 @@ def messages(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def requests(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     form = FilterRequestsForm()
     return render(request, 'manager/manager-dashboard-requests.html', {
         'form': form,
+        'new_messages': newMessages
     })
 
 
@@ -101,16 +118,27 @@ def manager_header_array(index):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def faqs(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     all_faq = Question.objects.all()
 
     return render(request, 'manager/manager-dashboard-faq.html', {
         'faqs': all_faq,
+        'new_messages': newMessages
     })
 
 
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def new_faq(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == "POST":
         faq_question_text = request.POST['question']
         faq_answer_text = request.POST['answer']
@@ -127,18 +155,24 @@ def new_faq(request):
             return render(request, 'manager/manager-dashboard-faq-new.html', {
                 'prev_question': faq_question_text,
                 'prev_answer': faq_answer_text,
+                'new_messages': newMessages,
                 'errors': error
             })
 
         Question.objects.create(question_text=faq_question_text, answer_text=faq_answer_text)
         return HttpResponseRedirect('/manager/faqs/')
     else:
-        return render(request, 'manager/manager-dashboard-faq-new.html')
+        return render(request, 'manager/manager-dashboard-faq-new.html',{'new_messages': newMessages,})
 
 
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_faq(request, faq_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     faq = get_object_or_404(Question, pk=faq_id)
     if request.method == "POST":
         faq_question_text = request.POST['question']
@@ -157,6 +191,7 @@ def edit_faq(request, faq_id):
             return render(request, 'manager/manager-dashboard-faq-edit.html', {
                 'faq': faq,
                 'errors': error,
+                'new_messages': newMessages,
             })
 
         faq.question_text = faq_question_text
@@ -165,6 +200,7 @@ def edit_faq(request, faq_id):
         return HttpResponseRedirect('/manager/faqs/')
     else:
         return render(request, 'manager/manager-dashboard-faq-edit.html', {
+            'new_messages': newMessages,
             'faq': faq
         })
 
@@ -180,8 +216,14 @@ def delete_faq(request, faq_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def notices(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     notices = Notice.objects.all()[0:10:-1]
     return render(request, 'manager/manager-dashboard-notices.html', {
+        'new_messages': newMessages,
         'notices': notices
     })
 
@@ -189,9 +231,15 @@ def notices(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def new_notice(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == 'GET':
         form = NoticeForm()
         return render(request, 'manager/manager-dashboard-notices-new.html', {
+            'new_messages': newMessages,
             'form': form
         })
 
@@ -209,6 +257,7 @@ def new_notice(request):
             return HttpResponseRedirect('/manager/notices/')
         else:
             return render(request, 'manager/manager-dashboard-notices-new.html', {
+                'new_messages': newMessages,
                 'form': form
             })
 
@@ -216,6 +265,11 @@ def new_notice(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_notice(request, notice_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     notice = get_object_or_404(Notice, pk=notice_id)
     start_date = jdatetime.GregorianToJalali(gmonth=notice.initiation_date.month, gyear=notice.initiation_date.year,
                                              gday=notice.initiation_date.day).getJalaliList()
@@ -231,6 +285,7 @@ def edit_notice(request, notice_id):
             }
         )
         return render(request, 'manager/manager-dashboard-notices-edit.html', {
+            'new_messages': newMessages,
             'form': form,
             'notice': notice,
         })
@@ -254,6 +309,7 @@ def edit_notice(request, notice_id):
             return HttpResponseRedirect('/manager/notices/')
         else:
             return render(request, 'manager/manager-dashboard-notices-edit.html', {
+                'new_messages': newMessages,
                 'form': form,
                 'notice': notice,
             })
@@ -270,7 +326,13 @@ def delete_notice(request, notice_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def notices_all(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     return render(request, 'manager/manager-dashboard-notices-all.html', {
+        'new_messages': newMessages,
         'notices': Notice.objects.all()[::-1]
     })
 
@@ -278,8 +340,14 @@ def notices_all(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def news(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     news = News.objects.all()[0:10:-1]
     return render(request, 'manager/manager-dashboard-news.html', {
+        'new_messages': newMessages,
         'news': news,
     })
 
@@ -287,9 +355,15 @@ def news(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def new_news(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == 'GET':
         form = NewsForm()
         return render(request, 'manager/manager-dashboard-news-new.html', {
+            'new_messages': newMessages,
             'form': form
         })
     else:
@@ -306,6 +380,7 @@ def new_news(request):
             return HttpResponseRedirect('/manager/news/')
         else:
             return render(request, 'manager/manager-dashboard-news-new.html', {
+                'new_messages': newMessages,
                 'form': form
             })
 
@@ -313,6 +388,11 @@ def new_news(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_news(request, news_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     new = get_object_or_404(News, pk=news_id)
     if request.method == 'GET':
         form = NewsForm(
@@ -322,6 +402,7 @@ def edit_news(request, news_id):
             }
         )
         return render(request, 'manager/manager-dashboard-news-edit.html', {
+            'new_messages': newMessages,
             'form': form,
             'new': new,
         })
@@ -348,8 +429,14 @@ def delete_news(request, news_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def news_all(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     news = News.objects.all()[::-1]
     return render(request, 'manager/manager-dashboard-news-all.html', {
+        'new_messages': newMessages,
         'news': news,
     })
 
@@ -365,9 +452,15 @@ def jdate_to_date(date_string):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def facilities(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == "GET":
         form = FacilityForm()
         return render(request, 'manager/manager-dashboard-facilities.html', {
+            'new_messages': newMessages,
             'form': form,
             'facilities': Facility.objects.all()
         })
@@ -378,6 +471,7 @@ def facilities(request):
             return HttpResponseRedirect('/manager/facilities/')
         else:
             return render(request, 'manager/manager-dashboard-facilities.html', {
+                'new_messages': newMessages,
                 'form': form,
                 'facilities': Facility.objects.all()
             })
@@ -386,10 +480,16 @@ def facilities(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def delete_facility(request, fac_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     facility = Facility.objects.get(pk=fac_id)
     applications = CoopApplication.objects.filter(facility=facility)
     if request.method == "GET":
         return render(request, 'manager/manager-dashboard-facilities-delete.html', {
+            'new_messages': newMessages,
             'facility': facility,
             'applications': applications
         })
@@ -403,10 +503,16 @@ def delete_facility(request, fac_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_facility(request, fac_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     facility = Facility.objects.get(pk=fac_id)
     if request.method == "GET":
         form = FacilityForm(instance=facility)
         return render(request, 'manager/manager-dashboard-facilities-edit.html', {
+            'new_messages': newMessages,
             'form': form,
             'facility': facility,
         })
@@ -418,6 +524,7 @@ def edit_facility(request, fac_id):
             return HttpResponseRedirect("/manager/facilities/")
         else:
             return render(request, 'manager/manager-dashboard-facilities-edit.html', {
+                'new_messages': newMessages,
                 'form': form,
                 'facility': facility,
             })
@@ -426,9 +533,15 @@ def edit_facility(request, fac_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def fields(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == "GET":
         form = FieldForm()
         return render(request, 'manager/manager-dashboard-fields.html', {
+            'new_messages': newMessages,
             'form': form,
             'fields': Field.objects.all()
         })
@@ -439,6 +552,7 @@ def fields(request):
             return HttpResponseRedirect('/manager/fields/')
         else:
             return render(request, 'manager/manager-dashboard-fields.html', {
+                'new_messages': newMessages,
                 'form': form,
                 'fields': Field.objects.all()
             })
@@ -447,9 +561,15 @@ def fields(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def delete_field(request, field_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     field = Field.objects.get(pk=field_id)
     if request.method == "GET":
         return render(request, 'manager/manager-dashboard-fields-delete.html', {
+            'new_messages': newMessages,
             'field': field,
             'users': BMNUser.objects.filter(field=field)
         })
@@ -464,10 +584,16 @@ def delete_field(request, field_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_field(request, field_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     field = Field.objects.get(pk=field_id)
     if request.method == "GET":
         form = FieldForm(instance=field)
         return render(request, 'manager/manager-dashboard-fields-edit.html', {
+            'new_messages': newMessages,
             'form': form,
             'field': field,
         })
@@ -480,6 +606,7 @@ def edit_field(request, field_id):
         else:
             return render(request, 'manager/manager-dashboard-fields-edit.html', {
                 'form': form,
+                'new_messages': newMessages,
                 'field': field,
             })
 
@@ -487,7 +614,13 @@ def edit_field(request, field_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def associations(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     return render(request, 'manager/manager-dashboard-associations.html', {
+        'new_messages': newMessages,
         'associations': Association.objects.all()
     })
 
@@ -495,9 +628,15 @@ def associations(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def new_association(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == "GET":
         form = AssociationForm()
         return render(request, 'manager/manager-dashboard-associations-new.html', {
+            'new_messages': newMessages,
             'form': form,
         })
     elif request.method == "POST":
@@ -511,6 +650,7 @@ def new_association(request):
 
         if errors:
             return render(request, 'manager/manager-dashboard-associations-new.html', {
+                'new_messages': newMessages,
                 'errors': errors,
                 'form': form,
                 'username': username,
@@ -539,6 +679,7 @@ def new_association(request):
             return HttpResponseRedirect("/manager/associations/")
         else:
             return render(request, 'manager/manager-dashboard-associations-new.html', {
+                'new_messages': newMessages,
                 'errors': errors,
                 'form': form,
                 'username': username,
@@ -550,10 +691,16 @@ def new_association(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def edit_association(request, assoc_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     association = Association.objects.get(pk=assoc_id)
     if request.method == "GET":
         form = AssociationForm(instance=association)
         return render(request, 'manager/manager-dashboard-associations-edit.html', {
+            'new_messages': newMessages,
             'form': form,
             'association': association,
         })
@@ -570,6 +717,7 @@ def edit_association(request, assoc_id):
             return HttpResponseRedirect("/manager/associations/")
         else:
             return render(request, 'manager/manager-dashboard-associations-new.html', {
+                'new_messages': newMessages,
                 'form': form,
                 'association': association,
             })
@@ -578,10 +726,16 @@ def edit_association(request, assoc_id):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def delete_association(request, assoc_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     association = Association.objects.get(pk=assoc_id)
     applications = CoopApplication.objects.filter(association=association)
     if request.method == "GET":
         return render(request, 'manager/manager-dashboard-associations-delete.html', {
+            'new_messages': newMessages,
             'association': association,
             'applications': applications
         })
@@ -601,10 +755,20 @@ def get_association(request):
 
 
 def compose_message(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     return render( request, 'manager/manager-dashboard-message-new.html')
 
 
 def compose_message_submit(request):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     if request.method == "POST":
         title = request.POST.get("title")
         receiver = request.POST.get("receiver")
@@ -643,10 +807,16 @@ def ajax_search(request):
 
 
 def conversation(request, conversation_id):
+    conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
+    newMessages = 0
+    for conversation in conversations:
+        if conversation.is_read == False:
+            newMessages += 1
     conversation = Conversation.objects.get(id=conversation_id)
     Conversation.objects.all().filter(id = conversation_id).update(is_read = True)
     messages = Message.objects.filter(conversation=conversation)
     return render(request, 'manager/manager-dashboard-messages-detail.html', {
+        'new_messages': newMessages,
         'conversation': conversation,
         'messages': messages
     })
