@@ -76,7 +76,7 @@ def logout_user(request):
 @user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
 @login_required(login_url='/manager/')
 def messages(request):
-    conversations = Conversation.objects.all().filter(receiver = request.user)
+    conversations = Conversation.objects.all().filter(receiver = request.user).order_by('-lastMessageTime')
     return render(request, 'manager/manager-dashboard-messages-lists.html', {
         'new_messages': 0,
         'conversations': conversations
