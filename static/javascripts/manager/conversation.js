@@ -11,12 +11,12 @@ link.onclick = function () {
     if(clicked){
         truncatedText.style.visibility = "hidden";
         fullText.style.visibility = "visible";
-        container.style.backgroundColor = "white";
+        // container.style.backgroundColor = "white";
         clicked=0;
     }else{
         truncatedText.style.visibility = "visible";
         fullText.style.visibility = "hidden";
-        container.style.backgroundColor = "#dddddd";
+        // container.style.backgroundColor = "#dddddd";
         clicked = 1;
     }
 }

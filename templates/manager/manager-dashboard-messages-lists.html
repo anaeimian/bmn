@@ -26,7 +26,7 @@
 {% endif %}
             <div class="comment">
                 <a class="avatar">
-                    <img src="{% static 'images/avatar/small/matt.jpg' %}">
+                    <img src="{{ MEDIA_URL }}{{ message.sender.profile_picture }}">
                 </a>
 
                 <div class="content">
