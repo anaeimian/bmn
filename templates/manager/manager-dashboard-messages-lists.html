@@ -2,7 +2,13 @@
 {% load staticfiles %}
 {% load filters %}
 {% block segment %}
+<style>
+.ui.visible.message {
+    margin: 0 !important;
 
+    border-radius: 0 !important;
+}
+</style>
            <h1 class="ui header">پیغام های شما</h1>
 <form class="ui reply form" action="ComposeMessage/">
                 <button type="submit" class="ui blue labeled submit icon button">
@@ -12,22 +18,29 @@
         <div class="ui comments">
             <h3 class="ui dividing header"></h3>
             {% for conversation in conversations %}
+                {% if conversation.is_read == False%}
+                <div class="ui visible message" style="background-color: #DDDDDF !important;">
+{% endif %}
+                {% if conversation.is_read == True %}
+                <div class="ui visible message" style="background-color: white">
+{% endif %}
             <div class="comment">
                 <a class="avatar">
                     <img src="{% static 'images/avatar/small/matt.jpg' %}">
                 </a>
 
                 <div class="content">
-                    <a href="{{ conversation.id }}" class="author">{{ conversation.title }}</a>
+                    <a href="{{ conversation.id }}" {% if conversation.is_read %} style="font-weight: normal" {% endif %}class="author">{{ conversation.title }}</a>
 
                     <div class="metadata">
-                        <span class="date">{{ conversation.lastMessageTime|to_jdate }} {{ conversation.lastMessageTime|date:"H:m" }}</span>
+                        <span {% if conversation.is_read %} style="font-weight: normal" {% endif %}{% if conversation.is_read == False %} style="font-weight: bold" {% endif %} class="date">{{ conversation.lastMessageTime|to_jdate }} {{ conversation.lastMessageTime|date:"H:m" }}</span>
                     </div>
-                    <div class="text">
+                    <div {% if conversation.is_read %} style="font-weight: normal" {% endif %} {% if conversation.is_read == False %} style="font-weight: bold" {% endif %} class="text">
                  {{ conversation.sender.first_name }} {{ conversation.sender.last_name }}
                     </div>
                 </div>
             </div>
+                </div>
             {% endfor %}
 
 

@@ -21,6 +21,9 @@ class Conversation(models.Model):
         verbose_name='Last Message Timestamp',
         default=utils.timezone.now,
     )
+    is_read = models.BooleanField(
+        default=False,
+    )
 
 class Message(models.Model):
     text = models.TextField(
@@ -58,9 +61,7 @@ class Message(models.Model):
         verbose_name='Message Timestamp',
         default=utils.timezone.now,
     )
-    is_read = models.BooleanField(
-        default=False,
-    )
+
     conversation = models.ForeignKey(Conversation)
     def __str__(self):
         return self.title
