@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'messages/ComposeMessage/getApplications/$', 'manager.views.get_applications'),
     url(r'messages/$', 'manager.views.messages'),
     url(r'messages/(?P<conversation_id>\d+)/$', 'manager.views.conversation'),
+    url(r'messages/(?P<conversation_id>\d+)/ConversationReply/$', 'manager.views.conversation_reply'),
 
     url(r'requests/$', 'manager.views.requests'),
 

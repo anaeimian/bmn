@@ -115,15 +115,16 @@
                 {#                    </div>#}
                 {#                </div>#}
                 {#            </div>#}
-                <form class="ui reply form">
+                <form class="ui reply form" method="post" action="ConversationReply/">
+                    {% csrf_token %}
                     <h3 class="ui header" style="margin-top: 30px;">متن پاسخ</h3>
 
                     <div class="field">
-                        <textarea></textarea>
+                        <textarea name="replyText"></textarea>
                     </div>
-                    <div class="ui blue labeled submit icon button">
+                    <button class="ui blue labeled submit icon button">
                         <i class="icon edit"></i> ارسال پاسخ
-                    </div>
+                    </button>
                 </form>
             </div>
         </div>

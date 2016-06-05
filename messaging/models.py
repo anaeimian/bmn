@@ -6,7 +6,7 @@ from users.models import Application
 
 
 class Conversation(models.Model):
-    title = models.CharField(max_length= 200)
+    title = models.CharField(max_length=200)
     sender = models.ForeignKey(
         User,
         verbose_name=_('Con Message Sender'),
@@ -24,6 +24,14 @@ class Conversation(models.Model):
     is_read = models.BooleanField(
         default=False,
     )
+    receiver2 = models.ForeignKey(
+        User,
+        verbose_name=_('Conversation Message Receiver2'),
+        related_name='Conversation_receiver2',
+        null=True,
+        blank=True,
+    )
+
 
 class Message(models.Model):
     text = models.TextField(
@@ -32,7 +40,7 @@ class Message(models.Model):
         blank=True,
     )
     # title = models.CharField(
-    #     _('Message Title'),
+    # _('Message Title'),
     #     max_length=200,
     # )
     sender = models.ForeignKey(
@@ -63,6 +71,7 @@ class Message(models.Model):
     )
 
     conversation = models.ForeignKey(Conversation)
+
     def __str__(self):
         return self.title
 

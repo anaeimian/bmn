@@ -28,7 +28,7 @@
 
             <div class="fields">
                 <div class="twelve wide field">
-                    <input type="text" onchange="test();" id="receiver" name="receiver" placeholder="دریافت کننده">
+                    <input type="text" onblur="getApplications();" id="receiver" name="receiver" placeholder="دریافت کننده">
                 </div>
 
             </div>
@@ -39,7 +39,7 @@
                 <label>
                     درخواست
                 </label>
-                <select id="applications">
+                <select id="applications" name="applications">
                 </select>
             </div>
         </div>
@@ -54,4 +54,5 @@
 {% endblock %}
 {% block scripts %}
     <script src="{% static 'javascripts/manager/ajax_user_search.js' %}"></script>
+    <script src="{% static 'javascripts/manager/ajax_application.js' %}"></script>
 {% endblock %}

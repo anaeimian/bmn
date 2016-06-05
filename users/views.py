@@ -57,13 +57,13 @@ def get_user_dashboard(request):
     user = request.user
     notices = Notice.objects.filter(initiation_date__lte=timezone.now).filter(expiration_date__gte=timezone.now)
     news = News.objects.all().reverse()[0:3]
-    messages = Message.objects.filter(reciever__id=request.user.id).filter(is_read=False)
+    messages = Message.objects.filter(reciever__id=request.user.id)
 
     return render(request, 'users/user-dashboard-home.html', {
         'user': user,
         'news': news,
         'notices': notices,
-        'new_messages': messages
+        'new_messages': 0
     })
 
 

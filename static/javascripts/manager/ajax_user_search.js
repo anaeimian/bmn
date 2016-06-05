@@ -2,18 +2,13 @@
  * Created by Arman on 2016-05-30.
  */
 
-$("#receiver").autocomplete({
-    source: "/manager/search/",
-    delay: 400,
-    minLength: 2
-});
 
-function test() {
+
+function getApplications() {
     var application = document.getElementById("applications");
     var length = application.options.length;
-    $("#application").innerHTML = null
     for (var i = 0; i < length; i++) {
-
+        application.remove(0);
     }
     $.ajax({
         url: "getApplications/", // the endpoint
@@ -22,11 +17,11 @@ function test() {
 
         // handle a successful response
         success: function (json) {
-            $.each(json, function (i, value) {
+            $.each(json, function (id, value) {
                 $('#applications').append($('<option>').text(value.value).attr('value', value.value));
                 console.log(value)
             });
-        },
+        }
 
         //// handle a non-successful response
         //error : function(xhr,errmsg,err) {

@@ -114,15 +114,12 @@ def get_applications(request):
     if request.method == 'GET':
         receiver_name = request.GET.get('the_post')
         applications = CoopApplication.objects.filter(application__user__user__username=receiver_name)
-        print(applications.__len__())
         results = []
         for application in applications:
-            print(application.facility.title)
             event_json = {}
-            event_json['id'] = application.facility.title
+            event_json['id'] = application.facility.id
             event_json['label'] = application.facility.title
             event_json['value'] = application.facility.title
-            print(event_json['label'])
             results.append(event_json)
         data = json.dumps(results)
     else:
@@ -795,6 +792,7 @@ def compose_message_submit(request):
         title = request.POST.get("title")
         receiver = request.POST.get("receiver")
         content = request.POST.get("content")
+        facility = request.POST.get("applications")
         conversation = Conversation()
         message = Message()
         conversation.title = title
@@ -804,6 +802,8 @@ def compose_message_submit(request):
         message.reciever = user
         message.text = content
         message.sender = request.user
+        application = CoopApplication.objects.filter(application__user__user=user, facility__title=facility)[0]
+        message.application = application.application
         conversation.save()
         message.conversation = conversation
         message.save()
@@ -842,3 +842,17 @@ def conversation(request, conversation_id):
         'conversation': conversation,
         'messages': messages
     })
+
+
+def conversation_reply(request, conversation_id):
+    if request.method == "POST":
+        text = request.POST["replyText"]
+        conversation = Conversation.objects.get(id=conversation_id)
+        if conversation.receiver2 is None:
+            conversation.receiver2 = conversation.sender
+            message = Message()
+            message.text = text
+            message.reciever = conversation.sender
+            message.sender = request.user
+            message.conversation = conversation
+        return HttpResponseRedirect('/')
