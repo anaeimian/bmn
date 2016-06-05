@@ -4,6 +4,7 @@ from django.conf.urls import include, url
 urlpatterns = [
     url(r'messages/ComposeMessage/$', 'manager.views.compose_message'),
     url(r'messages/ComposeMessage/ComposeMessageSubmit/$', 'manager.views.compose_message_submit'),
+    url(r'messages/ComposeMessage/getApplications/$', 'manager.views.get_applications'),
     url(r'messages/$', 'manager.views.messages'),
     url(r'messages/(?P<conversation_id>\d+)/$', 'manager.views.conversation'),
 

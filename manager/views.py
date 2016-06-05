@@ -38,7 +38,8 @@ def validate_association_data(name, username, email, password, repeat_password):
 
     return errors
 
-
+@user_passes_test(is_manager, login_url='/manager/login/', redirect_field_name=None)
+@login_required(login_url='/manager/')
 def home(request):
     conversations = Conversation.objects.all().filter(receiver=request.user).order_by('-lastMessageTime')
     newMessages = 0
@@ -107,6 +108,27 @@ def requests(request):
         'form': form,
         'new_messages': newMessages
     })
+
+
+def get_applications(request):
+    if request.method == 'GET':
+        receiver_name = request.GET.get('the_post')
+        applications = CoopApplication.objects.filter(application__user__user__username=receiver_name)
+        print(applications.__len__())
+        results = []
+        for application in applications:
+            print(application.facility.title)
+            event_json = {}
+            event_json['id'] = application.facility.title
+            event_json['label'] = application.facility.title
+            event_json['value'] = application.facility.title
+            print(event_json['label'])
+            results.append(event_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 def manager_header_array(index):
