@@ -11,7 +11,7 @@ from messaging.models import Message, Conversation
 from users.models import Field, BMNUser
 from manager.models import Question, News, Notice
 import json
-
+import datetime
 
 
 def is_manager(user):
@@ -847,12 +847,20 @@ def conversation(request, conversation_id):
 def conversation_reply(request, conversation_id):
     if request.method == "POST":
         text = request.POST["replyText"]
+        print(text)
         conversation = Conversation.objects.get(id=conversation_id)
         if conversation.receiver2 is None:
+
+            print("new message")
             conversation.receiver2 = conversation.sender
+            print(conversation.id)
+            # conversation.lastMessageTime=datetime.datetime.now()
+            conversation.update(lastMessageTime=datetime.datetime.now())
             message = Message()
             message.text = text
             message.reciever = conversation.sender
             message.sender = request.user
             message.conversation = conversation
+            message.save()
+            print(message.id)
         return HttpResponseRedirect('/')
